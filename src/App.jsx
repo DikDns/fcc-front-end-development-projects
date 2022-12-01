@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+
+const animatedComponents = makeAnimated();
 
 function App() {
   const [quotes, setQuotes] = useState(null);
+  const [tags, setTags] = useState([
+    { value: "tech", label: "tech" },
+    { value: "love", label: "love" },
+  ]);
+  const [selectedTags, setSelectedTags] = useState(null);
 
   useEffect(() => {}, []);
+
+  const handleTagsChange = (selectedTags) => {
+    console.log(selectedTags);
+    setSelectedTags(() => selectedTags);
+  };
 
   return (
     <div className="App">
@@ -24,7 +38,15 @@ function App() {
           <span id={`author`}>- DikDns</span>
         </div>
         <div id={`menu-wrapper`}>
-          <button id={`tags`}>New Quote</button>
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            isMulti={true}
+            id={`set-tags`}
+            options={tags}
+            onChange={handleTagsChange}
+            value={selectedTags}
+          />
           <button id={`new-quote`}>New Quote</button>
         </div>
         <div id={`share-wrapper`}>
