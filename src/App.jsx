@@ -14,15 +14,28 @@ function App() {
             facere placeat commodi dolorum!"
           </p>
         </div>
+        <div id={`tags-wrapper`}>
+          <ul id={`tags`}>
+            <li>sports</li>
+            <li>tech</li>
+          </ul>
+        </div>
         <div id={`author-wrapper`}>
           <span id={`author`}>- DikDns</span>
         </div>
-        <button id={`new-quote`}>New Quote</button>
-        <a
-          id={`tweet-quote`}
-          href={`twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${quotes}`}
-          target={`_blank`}
-        ></a>
+        <div id={`menu-wrapper`}>
+          <button id={`tags`}>New Quote</button>
+          <button id={`new-quote`}>New Quote</button>
+        </div>
+        <div id={`share-wrapper`}>
+          <a
+            id={`tweet-quote`}
+            href={`twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${quotes}`}
+            target={`_blank`}
+          >
+            Tweet
+          </a>
+        </div>
       </div>
     </div>
   );
