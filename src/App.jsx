@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
-  font-family: "Alexandria", sans-serif;
-
   background: rgba(255, 255, 255, 0.31);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -17,6 +15,14 @@ const Wrapper = styled.section`
   @media (max-width: 500px) {
     width: 95vw;
   }
+`;
+
+const Container = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 16px;
 `;
 
 import Author from "./components/Author";
@@ -73,7 +79,6 @@ function App() {
   }, []);
 
   const handleTagsChange = (selectedTags) => {
-    console.log(selectedTags);
     setSelectedTags(() => selectedTags);
   };
 
@@ -85,18 +90,24 @@ function App() {
   return (
     <div className="App">
       <Wrapper id={`quote-box`}>
-        <Content loading={loading} error={error} quote={quote} />
-        <Tags loading={loading} error={error} quote={quote} />
-        <Author loading={loading} error={error} quote={quote} />
-        <Menu
-          loading={loading}
-          error={error}
-          tags={tags}
-          selectedTags={selectedTags}
-          handleNewQuote={handleNewQuote}
-          handleTagsChange={handleTagsChange}
-        />
-        <Share loading={loading} error={error} quote={quote} />
+        <Container>
+          <Content loading={loading} error={error} quote={quote} />
+        </Container>
+        <Container>
+          <Tags loading={loading} error={error} quote={quote} />
+          <Author loading={loading} error={error} quote={quote} />
+        </Container>
+        <Container>
+          <Share loading={loading} error={error} quote={quote} />
+          <Menu
+            loading={loading}
+            error={error}
+            tags={tags}
+            selectedTags={selectedTags}
+            handleNewQuote={handleNewQuote}
+            handleTagsChange={handleTagsChange}
+          />
+        </Container>
       </Wrapper>
     </div>
   );
