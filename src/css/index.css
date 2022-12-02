@@ -130,11 +130,15 @@ table {
 
 /* INDEX CSS */
 
+@import url("https://fonts.googleapis.com/css2?family=Alexandria&family=Lato&display=swap");
+
 * {
   box-sizing: border-box;
 }
 
 body {
+  font-family: "Lato", sans-serif;
+
   min-height: 100vh;
   background-color: salmon;
   display: flex;
