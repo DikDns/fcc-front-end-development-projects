@@ -1,9 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+
+const Text = styled.p`
+  font-family: "Alexandria", sans-serif;
+`;
 
 export default function ({ loading, error, quote }) {
   return (
-    <div id={`text-wrapper`}>
+    <Text id={`text-wrapper`}>
       <p id={`text`}>
         <FontAwesomeIcon icon={faQuoteLeft} />
         {loading
@@ -14,6 +19,6 @@ export default function ({ loading, error, quote }) {
           ? quote.content
           : ``}
       </p>
-    </div>
+    </Text>
   );
 }
