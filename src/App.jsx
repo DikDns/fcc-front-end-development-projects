@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.31);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
