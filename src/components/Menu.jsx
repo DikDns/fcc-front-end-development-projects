@@ -1,8 +1,4 @@
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import styled from "styled-components";
-
-const animatedComponents = makeAnimated();
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,33 +6,23 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 
-  max-width: 200px;
+  width: 200px;
 `;
 
-export default function ({
-  loading,
-  error = null,
-  tags,
-  selectedTags,
-  handleTagsChange,
-  handleNewQuote,
-}) {
+const Button = styled.button`
+  width: 100%;
+`;
+
+export default function ({ loading, handleNewQuote }) {
   return (
     <Wrapper id={`menu-wrapper`}>
-      <Select
-        closeMenuOnSelect={true}
-        components={animatedComponents}
-        isMulti={false}
-        isLoading={loading}
-        id={`set-tags`}
-        options={tags ? tags : null}
-        onChange={handleTagsChange}
-        placeholder={`Select tags...`}
-        value={selectedTags}
-      />
-      <button id={`new-quote`} onClick={(e) => handleNewQuote(e)}>
+      <Button
+        id={`new-quote`}
+        onClick={(e) => handleNewQuote(e)}
+        disabled={loading ? true : false}
+      >
         New Quote
-      </button>
+      </Button>
     </Wrapper>
   );
 }

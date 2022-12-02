@@ -36,15 +36,11 @@ function App() {
   const [error, setError] = useState(null);
   const [quote, setQuote] = useState(null);
   const [generateQuote, setGenerateQuote] = useState(false);
-  const [tags, setTags] = useState({ value: null, label: null });
-  const [selectedTags, setSelectedTags] = useState(null);
 
   useEffect(() => {
     setLoading(() => true);
 
-    let currentTags = selectedTags ? selectedTags.value : ``;
-
-    const url = `https://api.quotable.io/random?tags=${currentTags}`;
+    const url = `https://api.quotable.io/random`;
 
     const fetchData = async () => {
       try {
@@ -57,7 +53,6 @@ function App() {
           setError(() => null);
           setQuote(() => json);
         }
-
         setLoading(() => false);
       } catch (error) {
         console.log("error", error);
@@ -66,18 +61,6 @@ function App() {
 
     fetchData();
   }, [generateQuote]);
-
-  useEffect(() => {
-    fetch(`https://api.quotable.io/tags`)
-      .then((res) => res.json())
-      .then((json) => {
-        setTags(json.map((tag) => ({ value: tag.slug, label: tag.name })));
-      });
-  }, []);
-
-  const handleTagsChange = (selectedTags) => {
-    setSelectedTags(() => selectedTags);
-  };
 
   const handleNewQuote = (e) => {
     e.preventDefault();
@@ -96,14 +79,7 @@ function App() {
         </Container>
         <Container>
           <Share loading={loading} error={error} quote={quote} />
-          <Menu
-            loading={loading}
-            error={error}
-            tags={tags}
-            selectedTags={selectedTags}
-            handleNewQuote={handleNewQuote}
-            handleTagsChange={handleTagsChange}
-          />
+          <Menu loading={loading} handleNewQuote={handleNewQuote} />
         </Container>
       </Wrapper>
     </div>
