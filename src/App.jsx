@@ -1,4 +1,21 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.section`
+  background: rgba(255, 255, 255, 0.31);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  padding: 16px;
+  width: 75vw;
+
+  @media (max-width: 500px) {
+    width: 95vw;
+  }
+`;
 
 import Author from "./components/Author";
 import Content from "./components/Content";
@@ -65,7 +82,7 @@ function App() {
 
   return (
     <div className="App">
-      <div id={`quote-box`}>
+      <Wrapper id={`quote-box`}>
         <Content loading={loading} error={error} quote={quote} />
         <Tags loading={loading} error={error} quote={quote} />
         <Author loading={loading} error={error} quote={quote} />
@@ -78,7 +95,7 @@ function App() {
           handleTagsChange={handleTagsChange}
         />
         <Share loading={loading} error={error} quote={quote} />
-      </div>
+      </Wrapper>
     </div>
   );
 }
