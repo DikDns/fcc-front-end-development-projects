@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.31);
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -11,6 +11,11 @@ const Wrapper = styled.div`
 
   padding: 16px;
   width: 75vw;
+  min-height: 40vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 500px) {
     width: 95vw;
@@ -18,11 +23,23 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: ${({ py }) => (py ? py : `0`)} ${({ px }) => (px ? px : `0`)};
+  padding-top: ${({ pt }) => (pt ? pt : `0`)};
+  padding-right: ${({ pe }) => (pe ? pe : `0`)};
+  padding-bottom: ${({ pb }) => (pb ? pb : `0`)};
+  padding-left: ${({ ps }) => (ps ? ps : `0`)};
 
-  margin-bottom: 16px;
+  margin: ${({ my }) => (my ? my : `0`)} ${({ mx }) => (mx ? mx : `0`)};
+  margin-top: ${({ mt }) => (mt ? mt : `0`)};
+  margin-right: ${({ me }) => (me ? me : `0`)};
+  margin-bottom: ${({ mb }) => (mb ? mb : `0`)};
+  margin-left: ${({ ms }) => (ms ? ms : `0`)};
+
+  display: flex;
+  flex-direction: ${({ column, row }) =>
+    column ? `column` : row ? `row` : `row`};
+  justify-content: ${({ justify }) => (justify ? justify : `center`)};
+  align-items: ${({ align }) => (align ? align : `center`)};
 `;
 
 import Author from "./components/Author";
@@ -70,14 +87,18 @@ function App() {
   return (
     <div className="App">
       <Wrapper id={`quote-box`}>
-        <Container>
-          <Content loading={loading} error={error} quote={quote} />
-        </Container>
-        <Container>
-          <Tags loading={loading} error={error} quote={quote} />
-          <Author loading={loading} error={error} quote={quote} />
-        </Container>
-        <Container>
+        <div>
+          <Container row justify={`space-between`} mb={`16px`}>
+            <Content loading={loading} error={error} quote={quote} />
+          </Container>
+
+          <Container row justify={`space-between`}>
+            <Tags loading={loading} error={error} quote={quote} />
+            <Author loading={loading} error={error} quote={quote} />
+          </Container>
+        </div>
+
+        <Container row justify={`space-between`}>
           <Share loading={loading} error={error} quote={quote} />
           <Menu loading={loading} handleNewQuote={handleNewQuote} />
         </Container>

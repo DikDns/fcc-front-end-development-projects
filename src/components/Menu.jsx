@@ -6,11 +6,14 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 
-  width: 200px;
+  width: 100px;
 `;
 
 const Button = styled.button`
   width: 100%;
+  background-color: #fff;
+  outline: none;
+  border: none;
 `;
 
 export default function ({ loading, handleNewQuote }) {
