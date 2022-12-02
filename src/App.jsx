@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
 
-const animatedComponents = makeAnimated();
+import Author from "./components/Author";
+import Content from "./components/Content";
+import Menu from "./components/Menu";
+import Share from "./components/Share";
+import Tags from "./components/Tags";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -64,76 +66,18 @@ function App() {
   return (
     <div className="App">
       <div id={`quote-box`}>
-        <div id={`text-wrapper`}>
-          <p id={`text`}>
-            {loading
-              ? `loading`
-              : error
-              ? error.statusMessage
-              : quote
-              ? quote.content
-              : ``}
-          </p>
-        </div>
-        <div id={`tags-wrapper`}>
-          <ul id={`tags`}>
-            {loading
-              ? `loading`
-              : error
-              ? `Not found`
-              : quote
-              ? quote.tags.map((tag, i) => <li key={i}>{tag}</li>)
-              : ""}
-          </ul>
-        </div>
-        <div id={`author-wrapper`}>
-          <span id={`author`}>
-            {`- `}
-            {loading
-              ? `loading`
-              : error
-              ? `Not found`
-              : quote
-              ? quote.author
-              : ""}
-          </span>
-        </div>
-        <div id={`menu-wrapper`}>
-          <Select
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            isMulti={true}
-            id={`set-tags`}
-            options={tags ? tags : null}
-            onChange={handleTagsChange}
-            placeholder={`Select tags...`}
-            value={selectedTags}
-          />
-          <button id={`new-quote`} onClick={(e) => handleNewQuote(e)}>
-            New Quote
-          </button>
-        </div>
-        <div id={`share-wrapper`}>
-          {loading ? (
-            `loading`
-          ) : quote ? (
-            <a
-              id={`tweet-quote`}
-              href={`https://twitter.com/intent/tweet?hashtags=quotes,${quote.tags
-                .map((tag) => tag)
-                .join(`,`)
-                .split("-")
-                .join("")}&related=freecodecamp&text="${quote.content}" -${
-                quote.author
-              }`}
-              target={`_blank`}
-            >
-              Tweet
-            </a>
-          ) : (
-            ``
-          )}
-        </div>
+        <Content loading={loading} error={error} quote={quote} />
+        <Tags loading={loading} error={error} quote={quote} />
+        <Author loading={loading} error={error} quote={quote} />
+        <Menu
+          loading={loading}
+          error={error}
+          tags={tags}
+          selectedTags={selectedTags}
+          handleNewQuote={handleNewQuote}
+          handleTagsChange={handleTagsChange}
+        />
+        <Share loading={loading} error={error} quote={quote} />
       </div>
     </div>
   );
