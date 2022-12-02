@@ -5,18 +5,60 @@ import makeAnimated from "react-select/animated";
 const animatedComponents = makeAnimated();
 
 function App() {
-  const [quotes, setQuotes] = useState(null);
-  const [tags, setTags] = useState([
-    { value: "tech", label: "tech" },
-    { value: "love", label: "love" },
-  ]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [quote, setQuote] = useState(null);
+  const [generateQuote, setGenerateQuote] = useState(false);
+  const [tags, setTags] = useState({ value: "", label: "" });
   const [selectedTags, setSelectedTags] = useState(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setLoading(() => true);
+
+    let currentTags = ``;
+    if (selectedTags && selectedTags.length >= 0) {
+      currentTags = selectedTags.map((tag) => tag.value).join(`,`);
+    }
+
+    const url = `https://api.quotable.io/random?tags=${currentTags}`;
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+        if (json.statusCode === 404) {
+          setQuote(() => null);
+          setError(() => json);
+        } else {
+          setError(() => null);
+          setQuote(() => json);
+        }
+
+        setLoading(() => false);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, [generateQuote]);
+
+  useEffect(() => {
+    fetch(`https://api.quotable.io/tags`)
+      .then((res) => res.json())
+      .then((json) => {
+        setTags(json.map((tag) => ({ value: tag.slug, label: tag.name })));
+      });
+  }, []);
 
   const handleTagsChange = (selectedTags) => {
     console.log(selectedTags);
     setSelectedTags(() => selectedTags);
+  };
+
+  const handleNewQuote = (e) => {
+    e.preventDefault();
+    setGenerateQuote((state) => !state);
   };
 
   return (
@@ -24,18 +66,37 @@ function App() {
       <div id={`quote-box`}>
         <div id={`text-wrapper`}>
           <p id={`text`}>
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-            facere placeat commodi dolorum!"
+            {loading
+              ? `loading`
+              : error
+              ? error.statusMessage
+              : quote
+              ? quote.content
+              : ``}
           </p>
         </div>
         <div id={`tags-wrapper`}>
           <ul id={`tags`}>
-            <li>sports</li>
-            <li>tech</li>
+            {loading
+              ? `loading`
+              : error
+              ? `Not found`
+              : quote
+              ? quote.tags.map((tag, i) => <li key={i}>{tag}</li>)
+              : ""}
           </ul>
         </div>
         <div id={`author-wrapper`}>
-          <span id={`author`}>- DikDns</span>
+          <span id={`author`}>
+            {`- `}
+            {loading
+              ? `loading`
+              : error
+              ? `Not found`
+              : quote
+              ? quote.author
+              : ""}
+          </span>
         </div>
         <div id={`menu-wrapper`}>
           <Select
@@ -43,20 +104,33 @@ function App() {
             components={animatedComponents}
             isMulti={true}
             id={`set-tags`}
-            options={tags}
+            options={tags ? tags : null}
             onChange={handleTagsChange}
+            placeholder={`Select tags...`}
             value={selectedTags}
           />
-          <button id={`new-quote`}>New Quote</button>
+          <button id={`new-quote`} onClick={(e) => handleNewQuote(e)}>
+            New Quote
+          </button>
         </div>
         <div id={`share-wrapper`}>
-          <a
-            id={`tweet-quote`}
-            href={`twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${quotes}`}
-            target={`_blank`}
-          >
-            Tweet
-          </a>
+          {loading ? (
+            `loading`
+          ) : quote ? (
+            <a
+              id={`tweet-quote`}
+              href={`https://twitter.com/intent/tweet?hashtags=quotes,${quote.tags
+                .map((tag) => tag)
+                .join(`,`)}&related=freecodecamp&text="${quote.content}" -${
+                quote.author
+              }`}
+              target={`_blank`}
+            >
+              Tweet
+            </a>
+          ) : (
+            ``
+          )}
         </div>
       </div>
     </div>
