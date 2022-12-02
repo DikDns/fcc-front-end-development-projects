@@ -42,10 +42,7 @@ function App() {
   useEffect(() => {
     setLoading(() => true);
 
-    let currentTags = ``;
-    if (selectedTags && selectedTags.length >= 0) {
-      currentTags = selectedTags.map((tag) => tag.value).join(`,`);
-    }
+    let currentTags = selectedTags ? selectedTags.value : ``;
 
     const url = `https://api.quotable.io/random?tags=${currentTags}`;
 

@@ -24,7 +24,7 @@ export default function ({
   return (
     <Wrapper id={`menu-wrapper`}>
       <Select
-        closeMenuOnSelect={false}
+        closeMenuOnSelect={true}
         components={animatedComponents}
         isMulti={false}
         isLoading={loading}
