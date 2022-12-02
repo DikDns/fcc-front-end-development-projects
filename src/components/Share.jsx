@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
+
 export default function ({ loading, error = null, quote }) {
   return (
     <div id={`share-wrapper`}>
@@ -17,7 +20,7 @@ export default function ({ loading, error = null, quote }) {
           }`}
           target={`_blank`}
         >
-          Tweet
+          <FontAwesomeIcon icon={faTwitterSquare} />
         </a>
       ) : (
         ``
