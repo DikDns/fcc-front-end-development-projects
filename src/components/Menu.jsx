@@ -18,7 +18,6 @@ export default function ({
         components={animatedComponents}
         isMulti={true}
         isLoading={loading}
-        isDisabled={error ? true : false}
         id={`set-tags`}
         options={tags ? tags : null}
         onChange={handleTagsChange}
