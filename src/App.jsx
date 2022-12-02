@@ -9,7 +9,7 @@ function App() {
   const [error, setError] = useState(null);
   const [quote, setQuote] = useState(null);
   const [generateQuote, setGenerateQuote] = useState(false);
-  const [tags, setTags] = useState({ value: "", label: "" });
+  const [tags, setTags] = useState({ value: null, label: null });
   const [selectedTags, setSelectedTags] = useState(null);
 
   useEffect(() => {
@@ -121,7 +121,9 @@ function App() {
               id={`tweet-quote`}
               href={`https://twitter.com/intent/tweet?hashtags=quotes,${quote.tags
                 .map((tag) => tag)
-                .join(`,`)}&related=freecodecamp&text="${quote.content}" -${
+                .join(`,`)
+                .split("-")
+                .join("")}&related=freecodecamp&text="${quote.content}" -${
                 quote.author
               }`}
               target={`_blank`}
