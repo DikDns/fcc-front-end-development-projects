@@ -58,7 +58,7 @@ function App() {
     "#00C6EB",
     "#4400FF",
   ]);
-  const glassesCount = [1, 2, 3, 4, 5];
+  const glassesCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   useEffect(() => {
     setLoading(() => true);
@@ -116,9 +116,9 @@ function App() {
 
       {/* DECORATION GLASS */}
       {glassesCount.map((count) => {
-        const opacity = Math.floor(Math.random() * 8) / 10;
-        const width = Math.floor(Math.random() * 500);
-        const height = Math.floor(Math.random() * 500);
+        const opacity = Math.floor(Math.random() * 9) / 10;
+        const width = Math.floor(Math.random() * 300);
+        const height = Math.floor(Math.random() * 300);
         const top = Math.floor(Math.random() * 90);
         const left = Math.floor(Math.random() * 90);
         const rotate = Math.floor(Math.random() * 100) / 100;
