@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-const Text = styled.p`
+const Text = styled.div`
   font-family: "Alexandria", sans-serif;
 `;
 
