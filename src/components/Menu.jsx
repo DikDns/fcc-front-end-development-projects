@@ -25,7 +25,7 @@ const Button = styled.button`
   transition: 250ms all;
 
   :hover {
-    background-color: rgba(0, 18, 25, 0.5);
+    background-color: rgba(0, 18, 25, 0.75);
   }
 `;
 
