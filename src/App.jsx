@@ -50,6 +50,8 @@ function App() {
 
   useEffect(() => {
     setLoading(() => true);
+    const colorI = Math.floor(Math.random() * colors.length);
+    document.body.style.backgroundColor = colors[colorI];
 
     const url = `https://api.quotable.io/random`;
 
@@ -64,8 +66,6 @@ function App() {
           setError(() => null);
           setQuote(() => json);
         }
-        const colorI = Math.floor(Math.random() * colors.length);
-        document.body.style.backgroundColor = colors[colorI];
         setLoading(() => false);
       } catch (error) {
         console.log("error", error);

@@ -13,7 +13,7 @@ const Button = styled.button`
   color: #fff;
 
   width: 100%;
-  background-color: #001219;
+  background-color: rgba(0, 18, 25, 1);
   outline: none;
   border: none;
   border-radius: 8px;
@@ -25,7 +25,7 @@ const Button = styled.button`
   transition: 250ms all;
 
   :hover {
-    background-color: #005f73;
+    background-color: rgba(0, 18, 25, 0.5);
   }
 `;
 
