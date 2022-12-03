@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 
-  padding: 16px;
+  padding: 32px 16px 16px;
   width: 75vw;
   min-height: 40vh;
 
@@ -87,7 +87,7 @@ function App() {
     <div className="App">
       <Wrapper id={`quote-box`}>
         <div>
-          <Container row justify={`space-between`} mb={`16px`}>
+          <Container row justify={`center`} mb={`16px`}>
             <Content loading={loading} error={error} quote={quote} />
           </Container>
 
@@ -97,7 +97,7 @@ function App() {
           </Container>
         </div>
 
-        <Container row justify={`space-between`}>
+        <Container row justify={`space-between`} mt={`16px`}>
           <Share loading={loading} error={error} quote={quote} />
           <Menu loading={loading} handleNewQuote={handleNewQuote} />
         </Container>

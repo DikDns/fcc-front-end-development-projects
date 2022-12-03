@@ -11,9 +11,7 @@ export default function ({ loading, error, quote }) {
   return (
     <Tags id={`tags-wrapper`} style={{ opacity: loading ? 0 : 1 }}>
       <ul id={`tags`}>
-        {loading
-          ? `loading`
-          : error
+        {error
           ? `Not found`
           : quote
           ? quote.tags.map((tag, i) => (

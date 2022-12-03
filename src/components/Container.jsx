@@ -13,6 +13,8 @@ export default styled.section`
   margin-bottom: ${({ mb }) => (mb ? mb : `0`)};
   margin-left: ${({ ms }) => (ms ? ms : `0`)};
 
+  width: ${({ width }) => (width ? width : `100%`)};
+
   display: flex;
   flex-direction: ${({ column, row }) =>
     column ? `column` : row ? `row` : `row`};

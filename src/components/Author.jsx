@@ -10,7 +10,7 @@ export default function ({ loading, error, quote }) {
     <Author id={`author-wrapper`} style={{ opacity: loading ? 0 : 1 }}>
       <span id={`author`}>
         {`- `}
-        {loading ? `loading` : error ? `Not found` : quote ? quote.author : ""}
+        {error ? `Not found` : quote ? quote.author : ""}
       </span>
     </Author>
   );
