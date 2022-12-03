@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 const Text = styled.div`
   font-family: "Alexandria", sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
 
   transition: 1s all;
 `;
