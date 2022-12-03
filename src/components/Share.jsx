@@ -15,7 +15,7 @@ export default function ({ loading, error = null, quote }) {
             .map((tag) => tag)
             .join(`,`)
             .split("-")
-            .join("")}&related=freecodecamp&text="${quote.content}" -${
+            .join("")}&related=freecodecamp&text="${quote.content}" - ${
             quote.author
           }`}
           target={`_blank`}
