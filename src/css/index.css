@@ -139,6 +139,8 @@ table {
 body {
   font-family: "Lato", sans-serif;
 
+  overflow: hidden;
+
   min-height: 100vh;
   background-color: #fff;
   display: flex;

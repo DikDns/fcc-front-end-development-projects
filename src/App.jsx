@@ -9,7 +9,13 @@ import Menu from "./components/Menu";
 import Share from "./components/Share";
 import Tags from "./components/Tags";
 
+import Glass from "./components/Glass";
+
 const Wrapper = styled.div`
+  position: relative;
+
+  z-index: 9999;
+
   background: rgba(255, 255, 255, 0.31);
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -52,6 +58,7 @@ function App() {
     "#00C6EB",
     "#4400FF",
   ]);
+  const glassesCount = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     setLoading(() => true);
@@ -106,6 +113,28 @@ function App() {
           <Menu loading={loading} handleNewQuote={handleNewQuote} />
         </Container>
       </Wrapper>
+
+      {/* DECORATION GLASS */}
+      {glassesCount.map((count) => {
+        const opacity = Math.floor(Math.random() * 8) / 10;
+        const width = Math.floor(Math.random() * 500);
+        const height = Math.floor(Math.random() * 500);
+        const top = Math.floor(Math.random() * 90);
+        const left = Math.floor(Math.random() * 90);
+        const rotate = Math.floor(Math.random() * 100) / 100;
+        console.log("TRIGGER GLASS");
+        return (
+          <Glass
+            key={count}
+            opacity={opacity}
+            width={`${width}px`}
+            height={`${height}px`}
+            top={`${top}%`}
+            left={`${left}%`}
+            rotate={rotate}
+          />
+        );
+      })}
     </div>
   );
 }
