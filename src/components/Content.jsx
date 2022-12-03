@@ -4,20 +4,23 @@ import styled from "styled-components";
 
 const Text = styled.div`
   font-family: "Alexandria", sans-serif;
+
+  transition: 1s all;
 `;
 
-export default function ({ loading, error, quote }) {
+export default function ({ loading, error, quote, opacity }) {
   return (
-    <Text id={`text-wrapper`}>
+    <Text id={`text-wrapper`} style={{ opacity: loading ? 0 : 1 }}>
       <p id={`text`}>
-        <FontAwesomeIcon icon={faQuoteLeft} />
-        {loading
-          ? `loading`
-          : error
-          ? error.statusMessage
-          : quote
-          ? quote.content
-          : ``}
+        {error ? (
+          error.statusMessage
+        ) : quote ? (
+          <>
+            <FontAwesomeIcon icon={faQuoteLeft} /> {quote.content}
+          </>
+        ) : (
+          ``
+        )}
       </p>
     </Text>
   );

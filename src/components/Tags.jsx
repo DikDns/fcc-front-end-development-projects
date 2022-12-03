@@ -2,13 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-const TagsWrapper = styled.div`
+const Tags = styled.div`
   font-family: "Alexandria", sans-serif;
+  transition: 1s all;
 `;
 
 export default function ({ loading, error, quote }) {
   return (
-    <TagsWrapper>
+    <Tags id={`tags-wrapper`} style={{ opacity: loading ? 0 : 1 }}>
       <ul id={`tags`}>
         {loading
           ? `loading`
@@ -23,6 +24,6 @@ export default function ({ loading, error, quote }) {
             ))
           : ""}
       </ul>
-    </TagsWrapper>
+    </Tags>
   );
 }

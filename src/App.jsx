@@ -35,6 +35,7 @@ function App() {
   const [error, setError] = useState(null);
   const [quote, setQuote] = useState(null);
   const [generateQuote, setGenerateQuote] = useState(false);
+
   const [colors, setColors] = useState([
     "#FF006F",
     "#2800EB",
@@ -72,7 +73,9 @@ function App() {
       }
     };
 
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 1000);
   }, [generateQuote]);
 
   const handleNewQuote = (e) => {
