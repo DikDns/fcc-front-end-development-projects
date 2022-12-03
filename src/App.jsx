@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import Container from "./components/Container";
+
+import Author from "./components/Author";
+import Content from "./components/Content";
+import Menu from "./components/Menu";
+import Share from "./components/Share";
+import Tags from "./components/Tags";
+
 const Wrapper = styled.div`
   background: rgba(255, 255, 255, 0.31);
   border-radius: 8px;
@@ -22,19 +30,23 @@ const Wrapper = styled.div`
   }
 `;
 
-import Container from "./components/Container";
-
-import Author from "./components/Author";
-import Content from "./components/Content";
-import Menu from "./components/Menu";
-import Share from "./components/Share";
-import Tags from "./components/Tags";
-
 function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [quote, setQuote] = useState(null);
   const [generateQuote, setGenerateQuote] = useState(false);
+  const [colors, setColors] = useState([
+    "#FF006F",
+    "#2800EB",
+    "#00EFFF",
+    "#EB7300",
+    "#FFEF00",
+    "#04FF00",
+    "#EBCA00",
+    "#FF6000",
+    "#00C6EB",
+    "#4400FF",
+  ]);
 
   useEffect(() => {
     setLoading(() => true);
@@ -52,6 +64,8 @@ function App() {
           setError(() => null);
           setQuote(() => json);
         }
+        const colorI = Math.floor(Math.random() * colors.length);
+        document.body.style.backgroundColor = colors[colorI];
         setLoading(() => false);
       } catch (error) {
         console.log("error", error);
