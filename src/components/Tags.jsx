@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const Tags = styled.div`
   font-family: "Alexandria", sans-serif;
+  font-style: italic;
   transition: 1s all;
 `;
 
