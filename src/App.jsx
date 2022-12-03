@@ -18,12 +18,16 @@ const Wrapper = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.3);
 
   padding: 32px 16px 16px;
-  width: 75vw;
+  width: 500px;
   min-height: 40vh;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    width: 75vw;
+  }
 
   @media (max-width: 500px) {
     width: 95vw;
