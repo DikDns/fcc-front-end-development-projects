@@ -25,16 +25,18 @@ const Wrapper = styled.div`
 
   z-index: 9999;
 
-  background: rgba(255, 255, 255, 0.31);
+  ${({ glass }) =>
+    !glass
+      ? ``
+      : `background: rgba(255, 255, 255, 0.31);
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);`}
 
-  padding: 32px 16px 16px;
   width: 500px;
-  min-height: 40vh;
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : "40vh")};
 
   display: flex;
   flex-direction: column;
@@ -47,6 +49,18 @@ const Wrapper = styled.div`
   @media (max-width: 500px) {
     width: 95vw;
   }
+
+  padding: ${({ py }) => (py ? py : `0`)} ${({ px }) => (px ? px : `0`)};
+  padding-top: ${({ pt }) => (pt ? pt : `0`)};
+  padding-right: ${({ pe }) => (pe ? pe : `0`)};
+  padding-bottom: ${({ pb }) => (pb ? pb : `0`)};
+  padding-left: ${({ ps }) => (ps ? ps : `0`)};
+
+  margin: ${({ my }) => (my ? my : `0`)} ${({ mx }) => (mx ? mx : `0`)};
+  margin-top: ${({ mt }) => (mt ? mt : `0`)};
+  margin-right: ${({ me }) => (me ? me : `0`)};
+  margin-bottom: ${({ mb }) => (mb ? mb : `0`)};
+  margin-left: ${({ ms }) => (ms ? ms : `0`)};
 `;
 
 function App() {
@@ -102,7 +116,14 @@ function App() {
 
   return (
     <div className="App">
-      <Wrapper id={`quote-box`}>
+      <Wrapper
+        id={`quote-box`}
+        glass={true}
+        pe={`16px`}
+        ps={`16px`}
+        pt={`16px`}
+        pb={`8px`}
+      >
         <div>
           <Container row justify={`center`} mb={`16px`}>
             <Content loading={loading} error={error} quote={quote} />
@@ -118,6 +139,27 @@ function App() {
           <Share loading={loading} error={error} quote={quote} />
           <Menu loading={loading} handleNewQuote={handleNewQuote} />
         </Container>
+      </Wrapper>
+
+      <Wrapper
+        id={`footer-box`}
+        minHeight={`25px`}
+        pe={`8px`}
+        ps={`8px`}
+        pt={`8px`}
+        pb={`8px`}
+        mt={`8px`}
+        style={{ textAlign: `center` }}
+      >
+        <footer>
+          <p>
+            Made by{" "}
+            <a target={`_blank`} href="https://dikdns.com">
+              DikDns
+            </a>
+            .
+          </p>
+        </footer>
       </Wrapper>
 
       {/* DECORATION GLASS */}
