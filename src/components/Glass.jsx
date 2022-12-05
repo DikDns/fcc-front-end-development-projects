@@ -19,4 +19,6 @@ export default styled.div`
   bottom: ${({ bottom }) => (bottom ? bottom : "0")};
   transform: ${({ rotate }) =>
     rotate ? "rotate(" + rotate + "turn);" : "rotate(0turn)"};
+
+  transition: 2s all;
 `;

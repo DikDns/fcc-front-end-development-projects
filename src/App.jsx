@@ -11,6 +11,15 @@ import Tags from "./components/Tags";
 
 import Glass from "./components/Glass";
 
+const Background = styled.div`
+  overflow: hidden;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+`;
+
 const Wrapper = styled.div`
   position: relative;
 
@@ -115,26 +124,28 @@ function App() {
       </Wrapper>
 
       {/* DECORATION GLASS */}
-      {glassesCount.map((count) => {
-        const opacity = Math.floor(Math.random() * 9) / 10;
-        const width = Math.floor(Math.random() * 300);
-        const height = Math.floor(Math.random() * 300);
-        const top = Math.floor(Math.random() * 90);
-        const left = Math.floor(Math.random() * 90);
-        const rotate = Math.floor(Math.random() * 100) / 100;
-        console.log("TRIGGER GLASS");
-        return (
-          <Glass
-            key={count}
-            opacity={opacity}
-            width={`${width}px`}
-            height={`${height}px`}
-            top={`${top}%`}
-            left={`${left}%`}
-            rotate={rotate}
-          />
-        );
-      })}
+      <Background>
+        {glassesCount.map((count) => {
+          const opacity = Math.floor(Math.random() * 9) / 10;
+          const width = Math.floor(Math.random() * 300);
+          const height = Math.floor(Math.random() * 300);
+          const top = Math.floor(Math.random() * 90);
+          const left = Math.floor(Math.random() * 90);
+          const rotate = Math.floor(Math.random() * 100) / 100;
+          console.log("TRIGGER GLASS");
+          return (
+            <Glass
+              key={count}
+              opacity={opacity}
+              width={`${width}px`}
+              height={`${height}px`}
+              top={`${top}%`}
+              left={`${left}%`}
+              rotate={rotate}
+            />
+          );
+        })}
+      </Background>
     </div>
   );
 }
