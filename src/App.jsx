@@ -56,16 +56,13 @@ function App() {
   const [generateQuote, setGenerateQuote] = useState(false);
 
   const [colors, setColors] = useState([
-    "#FF006F",
-    "#2800EB",
-    "#00EFFF",
-    "#EB7300",
-    "#FFEF00",
-    "#04FF00",
-    "#EBCA00",
-    "#FF6000",
-    "#00C6EB",
-    "#4400FF",
+    "#FF2130",
+    "#FF621A",
+    "#FFEB1F",
+    "#4AFD1B",
+    "#1EF0FF",
+    "#C13CFF",
+    "#F52891",
   ]);
   const glassesCount = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -132,7 +129,6 @@ function App() {
           const top = Math.floor(Math.random() * 90);
           const left = Math.floor(Math.random() * 90);
           const rotate = Math.floor(Math.random() * 100) / 100;
-          console.log("TRIGGER GLASS");
           return (
             <Glass
               key={count}
