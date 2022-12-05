@@ -40,8 +40,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  transition: 1s all;
-
   @media (max-width: 800px) {
     width: 75vw;
   }
