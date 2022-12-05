@@ -19,7 +19,7 @@ const Background = styled.div`
   top: 0;
   left: 0;
 `;
-
+// ? TO DO: DARK LIGHT THEME
 const Wrapper = styled.div`
   position: relative;
 
@@ -151,7 +151,9 @@ function App() {
         mt={`8px`}
         style={{ textAlign: `center` }}
       >
-        <footer>
+        <Container row justify={`center`}>
+          {/* ? TO DO: DARK LIGHT THEME */}
+          {/* <button>Switch Theme</button> */}
           <p>
             Made by{" "}
             <a target={`_blank`} href="https://dikdns.com">
@@ -159,7 +161,7 @@ function App() {
             </a>
             .
           </p>
-        </footer>
+        </Container>
       </Wrapper>
 
       {/* DECORATION GLASS */}
