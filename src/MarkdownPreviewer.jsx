@@ -3,6 +3,9 @@ import { marked } from "marked";
 
 import { useLocalStorage } from "./assets/logic/useLocalStorage";
 
+import Editor from "./assets/components/Editor";
+import Previewer from "./assets/components/Previewer";
+
 function MarkdownPreviewer() {
   const [editorVal, setEditorVal] = useLocalStorage(
     `editorVal`,
@@ -21,18 +24,8 @@ function MarkdownPreviewer() {
 
   return (
     <div className={`flex flex-col justify-center items-center py-10 px-5`}>
-      <textarea
-        className={`w-full sm:w-2/3 h-60 rounded-md border-4 border-sky-400 focus:outline-none focus:ring-4`}
-        name="editor"
-        id="editor"
-        value={editorVal}
-        onChange={(e) => handleEditorChange(e)}
-      ></textarea>
-      <div
-        className={`mt-2 p-2 w-full max-h-50 overflow-y-auto rounded-md border-4 border-sky-400`}
-        id="previewer"
-        dangerouslySetInnerHTML={{ __html: preview || `` }}
-      ></div>
+      <Editor editorVal={editorVal} handleEditorChange={handleEditorChange} />
+      <Previewer preview={preview} />
     </div>
   );
 }
