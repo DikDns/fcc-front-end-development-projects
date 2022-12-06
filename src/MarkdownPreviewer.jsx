@@ -30,7 +30,11 @@ function MarkdownPreviewer() {
       <Header />
 
       <div className={`flex flex-col justify-center items-center py-10 px-5`}>
-        <Editor editorVal={editorVal} handleEditorChange={handleEditorChange} />
+        <Editor
+          className={`w-full h-full focus:outline-none`}
+          value={editorVal}
+          onChange={handleEditorChange}
+        />
         <Previewer preview={preview} />
       </div>
 
