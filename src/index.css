@@ -38,4 +38,8 @@
   #previewer pre {
     @apply font-mono rounded mb-6 p-4 bg-neutral-200 leading-tight tracking-tighter overflow-x-auto;
   }
+
+  #previewer a {
+    @apply text-blue-500;
+  }
 }
