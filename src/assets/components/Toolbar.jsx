@@ -1,8 +1,8 @@
-export default function ({ text }) {
+export default function ({ text, isExpanded }) {
   return (
     <div>
       <span>{text}</span>
-      <i class="fa-solid fa-expand"></i>
+      <i className={`fa-solid fa-${isExpanded ? `compress` : `expand`}`}></i>
     </div>
   );
 }
