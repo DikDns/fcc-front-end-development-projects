@@ -34,12 +34,27 @@ function MarkdownPreviewer() {
       <div
         className={`absolute w-full top-[36px] bottom-[36px] h-auto flex flex-row overflow-hidden`}
       >
-        <Editor
-          className={`w-1/2 overflow-y-scroll resize-none focus:outline-none`}
-          value={editorVal}
-          onChange={handleEditorChange}
-        />
-        <Previewer className={`w-1/2 overflow-y-scroll`} innerHtml={preview} />
+        <div className="flex w-1/2 flex-col">
+          <Toolbar
+            text={`Editor`}
+            className={`bg-blue-200 text-blue-900 px-2 flex justify-between items-center`}
+          />
+          <Editor
+            className={`h-full overflow-y-scroll py-2 px-4 bg-blue-50 font-mono resize-none focus:outline-none`}
+            value={editorVal}
+            onChange={handleEditorChange}
+          />
+        </div>
+        <div className="flex w-1/2 flex-col">
+          <Toolbar
+            text={`Previewer`}
+            className={`bg-emerald-200 text-emerald-900 px-2 flex justify-between items-center`}
+          />
+          <Previewer
+            className={`h-full overflow-y-scroll bg-emerald-50 py-2 px-4`}
+            innerHtml={preview}
+          />
+        </div>
       </div>
 
       <Footer
