@@ -45,12 +45,16 @@ function MarkdownPreviewer() {
       <div
         className={`absolute w-full top-[36px] bottom-[36px] h-auto flex flex-row overflow-hidden`}
       >
-        <div className="flex w-1/2 flex-col">
+        <div
+          className={`transition-all duration-250 flex flex-col ${
+            expandEditor ? `w-full` : expandPreviewer ? `w-0` : `w-8/12`
+          }`}
+        >
           <Toolbar
             onClick={handleToolbar}
             isExpanded={expandEditor}
             text={`Editor`}
-            className={`bg-blue-200 text-blue-900 px-2 flex justify-between items-center`}
+            className={`bg-blue-200 text-blue-900 px-4 py-2 flex justify-between items-center hover:bg-blue-300 active:bg-blue-100 transition-all duration-250`}
           />
           <Editor
             className={`h-full overflow-y-scroll py-2 px-4 bg-blue-50 font-mono resize-none focus:outline-none`}
@@ -58,12 +62,16 @@ function MarkdownPreviewer() {
             onChange={handleEditorChange}
           />
         </div>
-        <div className="flex w-1/2 flex-col">
+        <div
+          className={`transition-all duration-250 flex flex-col ${
+            expandPreviewer ? `w-full` : expandEditor ? `w-0` : `w-4/12`
+          }`}
+        >
           <Toolbar
             onClick={handleToolbar}
             isExpanded={expandPreviewer}
             text={`Previewer`}
-            className={`bg-emerald-200 text-emerald-900 px-2 flex justify-between items-center`}
+            className={`bg-emerald-200 text-emerald-900 px-4 py-2 flex justify-between items-center hover:bg-emerald-300 active:bg-emerald-100 transition-all duration-250`}
           />
           <Previewer
             className={`h-full overflow-y-scroll bg-emerald-50 py-2 px-4`}
