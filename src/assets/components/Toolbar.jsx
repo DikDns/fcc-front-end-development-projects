@@ -1,8 +1,10 @@
-export default function ({ className, text, isExpanded }) {
+export default function ({ className, text, onClick, isExpanded }) {
   return (
     <div className={className}>
       <span>{text}</span>
-      <i className={`fa-solid fa-${isExpanded ? `compress` : `expand`}`}></i>
+      <a href="#" onClick={onClick}>
+        <i className={`fa-solid fa-${isExpanded ? `compress` : `expand`}`}></i>
+      </a>
     </div>
   );
 }
