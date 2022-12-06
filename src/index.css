@@ -26,4 +26,8 @@
   #previewer > h6 {
     @apply text-sm font-semibold mb-4 text-neutral-500;
   }
+
+  #previewer > p {
+    @apply text-base font-normal mb-6 mx-4 break-words;
+  }
 }
