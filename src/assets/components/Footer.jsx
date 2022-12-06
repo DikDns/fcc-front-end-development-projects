@@ -1,6 +1,6 @@
-export default function () {
+export default function ({ className }) {
   return (
-    <footer>
+    <footer className={className}>
       by{" "}
       <a href="https://dikdns.com" target={`_blank`}>
         DikDns
