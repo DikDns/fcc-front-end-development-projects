@@ -57,7 +57,9 @@ function MarkdownPreviewer() {
             className={`bg-blue-200 text-blue-900 px-4 py-2 flex justify-between items-center hover:bg-blue-300 active:bg-blue-100 transition-all duration-250`}
           />
           <Editor
-            className={`h-full overflow-y-scroll py-2 px-4 bg-blue-50 font-mono resize-none focus:outline-none`}
+            className={`h-full overflow-y-scroll py-2 px-4 font-mono resize-none focus:outline-none ${
+              expandEditor ? `bg-slate-50` : `bg-blue-50`
+            }`}
             value={editorVal}
             onChange={handleEditorChange}
           />
@@ -74,7 +76,9 @@ function MarkdownPreviewer() {
             className={`bg-emerald-200 text-emerald-900 px-4 py-2 flex justify-between items-center hover:bg-emerald-300 active:bg-emerald-100 transition-all duration-250`}
           />
           <Previewer
-            className={`h-full overflow-y-scroll bg-emerald-50 py-2 px-4`}
+            className={`h-full overflow-y-scroll py-2 px-4 ${
+              expandPreviewer ? `bg-slate-50` : `bg-emerald-50`
+            }`}
             innerHtml={preview}
           />
         </div>
