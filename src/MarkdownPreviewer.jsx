@@ -7,6 +7,7 @@ import Header from "./assets/components/Header";
 import Footer from "./assets/components/Footer";
 import Editor from "./assets/components/Editor";
 import Previewer from "./assets/components/Previewer";
+import Toolbar from "./assets/components/Toolbar";
 
 function MarkdownPreviewer() {
   const [editorVal, setEditorVal] = useLocalStorage(
