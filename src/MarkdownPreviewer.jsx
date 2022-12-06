@@ -3,6 +3,8 @@ import { marked } from "marked";
 
 import { useLocalStorage } from "./assets/logic/useLocalStorage";
 
+import Header from "./assets/components/Header";
+import Footer from "./assets/components/Footer";
 import Editor from "./assets/components/Editor";
 import Previewer from "./assets/components/Previewer";
 
@@ -23,10 +25,16 @@ function MarkdownPreviewer() {
   };
 
   return (
-    <div className={`flex flex-col justify-center items-center py-10 px-5`}>
-      <Editor editorVal={editorVal} handleEditorChange={handleEditorChange} />
-      <Previewer preview={preview} />
-    </div>
+    <>
+      <Header />
+
+      <div className={`flex flex-col justify-center items-center py-10 px-5`}>
+        <Editor editorVal={editorVal} handleEditorChange={handleEditorChange} />
+        <Previewer preview={preview} />
+      </div>
+
+      <Footer />
+    </>
   );
 }
 
