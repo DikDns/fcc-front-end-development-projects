@@ -1,9 +1,9 @@
-export default function ({ preview }) {
+export default function ({ className, innerHtml }) {
   return (
     <div
-      className={`mt-2 p-2 w-full max-h-50 overflow-y-auto rounded-md border-4 border-sky-400`}
+      className={className}
       id="previewer"
-      dangerouslySetInnerHTML={{ __html: preview || `` }}
+      dangerouslySetInnerHTML={{ __html: innerHtml || `` }}
     ></div>
   );
 }

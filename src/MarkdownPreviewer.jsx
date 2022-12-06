@@ -35,7 +35,7 @@ function MarkdownPreviewer() {
           value={editorVal}
           onChange={handleEditorChange}
         />
-        <Previewer preview={preview} />
+        <Previewer innerHtml={preview} />
       </div>
 
       <Footer />
