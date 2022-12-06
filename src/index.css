@@ -46,4 +46,19 @@
   #previewer blockquote {
     @apply pl-4 border-l-8 border-neutral-200 text-neutral-500;
   }
+
+  #previewer table {
+    @apply block max-w-full overflow-auto rounded mb-6;
+  }
+
+  #previewer tr {
+    @apply even:bg-neutral-100;
+  }
+
+  #previewer td {
+    @apply p-2 border-inherit border-2;
+  }
+  #previewer th {
+    @apply p-2 border-inherit border-2 font-semibold;
+  }
 }
