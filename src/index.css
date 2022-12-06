@@ -58,7 +58,28 @@
   #previewer td {
     @apply p-2 border-inherit border-2;
   }
+
   #previewer th {
     @apply p-2 border-inherit border-2 font-semibold;
+  }
+
+  #previewer ul {
+    @apply pl-8 list-disc mb-6;
+  }
+
+  #previewer ul li ul {
+    @apply pl-8 list-[circle];
+  }
+
+  #previewer ul li ul li ul {
+    @apply pl-8 list-[square];
+  }
+
+  #previewer ul li ul li ul {
+    @apply pl-8 list-[square];
+  }
+
+  #previewer ol {
+    @apply pl-8 list-decimal mb-6;
   }
 }
