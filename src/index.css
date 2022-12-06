@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  #previewer > h1 {
+    @apply text-2xl font-bold underline underline-offset-8 decoration-1 decoration-neutral-200;
+  }
+}
