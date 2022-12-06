@@ -47,7 +47,11 @@ function MarkdownPreviewer() {
       >
         <div
           className={`transition-all duration-250 flex flex-col ${
-            expandEditor ? `w-full` : expandPreviewer ? `w-0` : `w-8/12`
+            expandEditor
+              ? `w-full`
+              : expandPreviewer
+              ? `w-0`
+              : `w-7/12 sm:w-1/2`
           }`}
         >
           <Toolbar
@@ -66,7 +70,11 @@ function MarkdownPreviewer() {
         </div>
         <div
           className={`transition-all duration-250 flex flex-col ${
-            expandPreviewer ? `w-full` : expandEditor ? `w-0` : `w-4/12`
+            expandPreviewer
+              ? `w-full`
+              : expandEditor
+              ? `w-0`
+              : `w-5/12 sm:w-1/2`
           }`}
         >
           <Toolbar
