@@ -15,6 +15,7 @@ function MarkdownPreviewer() {
     `# Markdown syntax guide\n\n## Headers\n\n# This is a Heading h1\n## This is a Heading h2 \n###### This is a Heading h6\n\n## Emphasis\n\n*This text will be italic*  \n_This will also be italic_\n\n**This text will be bold**  \n__This will also be bold__\n\n_You **can** combine them_\n\n## Lists\n\n### Unordered\n\n* Item 1\n* Item 2\n\t* Item 2a\n\t* Item 2b\n\n### Ordered\n\n1. Item 1\n1. Item 2\n1. Item 3\n\t1. Item 3a\n\t1. Item 3b\n\n## Images\n\n![This is a alt text.](https://source.unsplash.com/1000x600 "This is a sample image.")\n\n## Links\n\nMy previous project: [Random Quote Machine](https://rqm.dikdns.com/).\n\n## Blockquotes\n\n> Markdown is a lightweight markup language with plain-text-formatting syntax, created in 2004 by John Gruber with Aaron Swartz.\n>\n>> Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor.\n\n## Tables\n\n| Left columns  | Right columns |\n| ------------- |:-------------:|\n| left foo      | right foo     |\n| left bar      | right bar     |\n| left baz      | right baz     |\n\n## Blocks of code\n\n\`\`\`\nlet message = 'Hello world';\nalert(message);\n\`\`\`\n\n## Inline code\n\nThis web site is using \`markedjs\` and \`tailwindcss\`.`
   );
   const [preview, setPreview] = useState(null);
+  const [expand, setExpand] = useState(null);
 
   useEffect(() => {
     setPreview(() => marked.parse(editorVal));
@@ -23,6 +24,10 @@ function MarkdownPreviewer() {
   const handleEditorChange = (e) => {
     e.preventDefault();
     setEditorVal(() => e.target.value);
+  };
+
+  const handleToolbar = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -36,6 +41,8 @@ function MarkdownPreviewer() {
       >
         <div className="flex w-1/2 flex-col">
           <Toolbar
+            onClick={handleToolbar}
+            isExpanded={expand}
             text={`Editor`}
             className={`bg-blue-200 text-blue-900 px-2 flex justify-between items-center`}
           />
@@ -47,6 +54,8 @@ function MarkdownPreviewer() {
         </div>
         <div className="flex w-1/2 flex-col">
           <Toolbar
+            onClick={handleToolbar}
+            isExpanded={expand}
             text={`Previewer`}
             className={`bg-emerald-200 text-emerald-900 px-2 flex justify-between items-center`}
           />
