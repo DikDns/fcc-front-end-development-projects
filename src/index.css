@@ -31,7 +31,11 @@
     @apply text-base font-normal mb-6 mx-4 break-words;
   }
 
-  #previewer code {
-    @apply font-mono rounded px-1 bg-neutral-200;
+  #previewer p code {
+    @apply font-mono rounded px-1 bg-neutral-200 leading-tight tracking-tighter;
+  }
+
+  #previewer pre {
+    @apply font-mono rounded p-4 bg-neutral-200 leading-tight tracking-tighter;
   }
 }
