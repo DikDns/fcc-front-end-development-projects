@@ -32,6 +32,6 @@
   }
 
   #previewer code {
-    @apply bg-neutral-200;
+    @apply font-mono rounded px-1 bg-neutral-200;
   }
 }
