@@ -3,31 +3,35 @@
 @tailwind utilities;
 
 @layer components {
-  #previewer > h1 {
+  #previewer h1 {
     @apply text-2xl font-bold border-b-2 border-neutral-200 pb-2 mb-4 break-words;
   }
 
-  #previewer > h2 {
+  #previewer h2 {
     @apply text-xl font-semibold border-b border-neutral-200 pb-1 mb-4 break-words;
   }
 
-  #previewer > h3 {
+  #previewer h3 {
     @apply text-lg font-semibold mb-4 break-words;
   }
 
-  #previewer > h4 {
+  #previewer h4 {
     @apply text-base font-semibold mb-4 break-words;
   }
 
-  #previewer > h5 {
+  #previewer h5 {
     @apply text-sm font-semibold mb-4 break-words;
   }
 
-  #previewer > h6 {
+  #previewer h6 {
     @apply text-sm font-semibold mb-4 text-neutral-500 break-words;
   }
 
-  #previewer > p {
+  #previewer p {
     @apply text-base font-normal mb-6 mx-4 break-words;
+  }
+
+  #previewer code {
+    @apply bg-neutral-200;
   }
 }
