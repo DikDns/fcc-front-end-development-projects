@@ -4,6 +4,26 @@
 
 @layer components {
   #previewer > h1 {
-    @apply text-2xl font-bold underline underline-offset-8 decoration-1 decoration-neutral-200;
+    @apply text-2xl font-bold border-b-2 border-neutral-200 pb-2 mb-4;
+  }
+
+  #previewer > h2 {
+    @apply text-xl font-semibold border-b border-neutral-200 pb-1 mb-4;
+  }
+
+  #previewer > h3 {
+    @apply text-lg font-semibold mb-4;
+  }
+
+  #previewer > h4 {
+    @apply text-base font-semibold mb-4;
+  }
+
+  #previewer > h5 {
+    @apply text-sm font-semibold mb-4;
+  }
+
+  #previewer > h6 {
+    @apply text-sm font-semibold mb-4 text-neutral-500;
   }
 }
