@@ -42,4 +42,8 @@
   #previewer a {
     @apply text-blue-500;
   }
+
+  #previewer blockquote {
+    @apply pl-4 border-l-8 border-neutral-200 text-neutral-500;
+  }
 }
