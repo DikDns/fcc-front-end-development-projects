@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Drum() {
-  return <div className="Drum"></div>;
+  return <main id="drum-machine"></main>;
 }
 
 export default Drum;
