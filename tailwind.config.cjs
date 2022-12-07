@@ -2,7 +2,11 @@
 module.exports = {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        display: [`"Zen Dots"`, `cursive`],
+      },
+    },
   },
   plugins: [],
 };
