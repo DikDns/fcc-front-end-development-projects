@@ -6,6 +6,7 @@
   @font-face {
     font-family: "Zen Dots";
     font-weight: 400;
-    src: url(./assets/fonts/ZenDots-Regular.ttf) format("ttf");
+    src: local("Zen Dots"),
+      url(./assets/fonts/ZenDots-Regular.ttf) format("truetype");
   }
 }
