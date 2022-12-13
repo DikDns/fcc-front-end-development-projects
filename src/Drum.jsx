@@ -71,6 +71,16 @@ function Drum() {
     setSliderVal(() => e.target.value / 100);
   };
 
+  useEffect(() => {
+    const audios = document.querySelectorAll(`.clip`);
+    if (!audios) return;
+    audios.forEach((audio) => {
+      audio.volume = sliderVal;
+    });
+    const vol = Math.round(sliderVal * 100);
+    setDisplay(() => `volume: ${vol === 0 ? `muted` : `${vol}%`}`);
+  }, [sliderVal]);
+
   const handlePadClick = (e) => {
     if (!power) return;
     if (!e.target.classList.contains("drum-pad")) return;
