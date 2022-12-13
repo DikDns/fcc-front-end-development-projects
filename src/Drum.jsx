@@ -65,9 +65,10 @@ function Drum() {
   const [currentPadBank, setCurrentPadBank] = useState(padBank[0]);
   const [display, setDisplay] = useState(`Heater Kit`);
   const [power, setPower] = useState(true);
-  const [sliderVal, setSliderVal] = useState(0.3);
+  const [sliderVal, setSliderVal] = useState(0.5);
 
   const handleSlider = (e) => {
+    if (!power) return;
     setSliderVal(() => e.target.value / 100);
   };
 
@@ -137,6 +138,16 @@ function Drum() {
     setDisplay(() => selectedPadBank.name);
   };
 
+  const handlePowerClick = (e) => {
+    e.preventDefault();
+    setPower((state) => !state);
+    setDisplay(() => (!power ? `Power: On` : `Power: Off`));
+  };
+
+  useEffect(() => {
+    setDisplay(() => ``);
+  }, []);
+
   return (
     <main
       id="drum-machine"
@@ -168,8 +179,9 @@ function Drum() {
             </button>
           ))}
         </div>
-        <div className={`p-4`}>
+        <div className={`flex flex-col items-center p-4`}>
           <div
+            onClick={(e) => handlePowerClick(e)}
             id="power"
             className={`mb-2 flex flex-col items-center justify-center`}
           >
@@ -184,7 +196,7 @@ function Drum() {
           </div>
           <div
             id="display"
-            className={`w-full rounded bg-red-200 py-1 text-center font-display text-lg tracking-wide`}
+            className={`text-md h-10 w-48 overflow-hidden rounded bg-red-200 text-center font-display leading-10 tracking-wide`}
           >
             {display}
           </div>
