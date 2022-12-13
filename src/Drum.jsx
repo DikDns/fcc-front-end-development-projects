@@ -140,8 +140,13 @@ function Drum() {
 
   const handlePowerClick = (e) => {
     e.preventDefault();
+    setDisplay(() => (power ? `power: off` : `power: on`));
+    if (power) {
+      setTimeout(() => {
+        setDisplay(() => ``);
+      }, 500);
+    }
     setPower((state) => !state);
-    setDisplay(() => (!power ? `Power: On` : `Power: Off`));
   };
 
   useEffect(() => {
@@ -155,12 +160,12 @@ function Drum() {
     >
       <div
         id="drum-container"
-        className={`flex w-11/12 flex-col items-center justify-between rounded-md bg-red-400 p-4 sm:w-[600px] md:flex-row`}
+        className={`flex w-11/12 flex-col items-center justify-between rounded-md bg-red-400 p-4 sm:w-[600px] sm:flex-row`}
       >
         <div
           onClick={(e) => handlePadClick(e)}
           id="drum-pad-container"
-          className={`my-2 grid w-11/12 grid-cols-3 justify-items-center gap-2 rounded-md sm:w-[400px]`}
+          className={`my-2 grid w-11/12 grid-cols-3 justify-items-center gap-2 rounded-md`}
         >
           {currentPadBank.kits.map((kit) => (
             <button
