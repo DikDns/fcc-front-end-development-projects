@@ -65,27 +65,26 @@ function Drum() {
   const [currentPadBank, setCurrentPadBank] = useState(padBank[0]);
   const [display, setDisplay] = useState(`Heater Kit`);
   const [power, setPower] = useState(true);
-  const [sliderVal, setSliderVal] = useState(0.5);
+  const [sliderVal, setSliderVal] = useState(50);
 
   const handleSlider = (e) => {
     if (!power) return;
-    setSliderVal(() => e.target.value / 100);
+    setSliderVal(() => e.target.value);
   };
 
   useEffect(() => {
     const audios = document.querySelectorAll(`.clip`);
     if (!audios) return;
     audios.forEach((audio) => {
-      audio.volume = sliderVal;
+      audio.volume = sliderVal / 100;
     });
-    const vol = Math.round(sliderVal * 100);
-    setDisplay(() => `volume: ${vol}%`);
+    setDisplay(() => `volume: ${sliderVal}%`);
   }, [sliderVal]);
 
   const handlePadClick = (e) => {
     if (!power) return;
     if (!e.target.classList.contains("drum-pad")) return;
-    if (sliderVal === 0) {
+    if (sliderVal == 0) {
       setDisplay(() => `volume: muted`);
       return;
     }
@@ -96,6 +95,8 @@ function Drum() {
     );
     if (!namePad) return;
 
+    updateDrumPadDisplay(namePad.id);
+
     audio.currentTime = 0;
     audio.play();
 
@@ -105,7 +106,7 @@ function Drum() {
   useEffect(() => {
     const handlePadKeyDown = (e) => {
       if (!power) return;
-      if (sliderVal === 0) {
+      if (sliderVal == 0) {
         setDisplay(() => `volume: muted`);
         return;
       }
@@ -115,6 +116,8 @@ function Drum() {
       );
       if (!namePad) return;
       const audio = document.querySelector(`#${namePad.keyTrigger}`);
+
+      updateDrumPadDisplay(namePad.id);
 
       audio.currentTime = 0;
       audio.play();
@@ -153,14 +156,29 @@ function Drum() {
     setDisplay(() => ``);
   }, []);
 
+  const updateDrumPadDisplay = (namePadId = ``) => {
+    const btn = document.querySelector(`#${namePadId}`);
+    btn.classList.remove(`shadow-zinc-50`);
+    btn.classList.remove(`bg-zinc-50`);
+    btn.classList.add(`bg-sky-400`);
+    btn.classList.add(`shadow-sky-400`);
+
+    setTimeout(() => {
+      btn.classList.remove(`shadow-sky-400`);
+      btn.classList.remove(`bg-sky-400`);
+      btn.classList.add(`bg-zinc-50`);
+      btn.classList.add(`shadow-zinc-50`);
+    }, 100);
+  };
+
   return (
     <main
       id="drum-machine"
-      className={`flex min-h-screen items-center justify-center`}
+      className={`flex min-h-screen items-center justify-center bg-violet-400`}
     >
       <div
         id="drum-container"
-        className={`flex w-11/12 flex-col items-center justify-between rounded-md bg-red-400 p-4 sm:w-[600px] sm:flex-row`}
+        className={`flex w-11/12 flex-col items-center justify-between rounded-md bg-zinc-800 p-4 shadow shadow-zinc-800 sm:w-[600px] sm:flex-row`}
       >
         <div
           onClick={(e) => handlePadClick(e)}
@@ -173,7 +191,13 @@ function Drum() {
               key={kit.id}
               id={kit.id}
               type="button"
-              className={`drum-pad h-20 w-full rounded-md bg-red-200 font-display sm:w-28`}
+              className={
+                `drum-pad` +
+                ` ` +
+                `${
+                  !power ? `bg-zinc-400` : `bg-zinc-50`
+                } h-20 w-full rounded-md font-display shadow-sm shadow-zinc-50 transition-all duration-200 sm:w-28`
+              }
             >
               <audio
                 className={`clip`}
@@ -184,51 +208,69 @@ function Drum() {
             </button>
           ))}
         </div>
-        <div className={`flex flex-col items-center p-4`}>
+        <div
+          className={`flex w-full flex-col items-center p-2 sm:w-fit md:p-4`}
+        >
           <div
             onClick={(e) => handlePowerClick(e)}
             id="power"
-            className={`mb-2 flex flex-col items-center justify-center`}
+            className={`mb-2 flex flex-col items-center justify-center font-display text-zinc-50`}
           >
             Power
-            <div className={`h-6 w-10 cursor-pointer bg-red-200 p-1`}>
+            <div
+              className={`${
+                !power ? `bg-zinc-400` : `bg-zinc-50 shadow-zinc-50`
+              } h-6 w-10 cursor-pointer p-1 shadow-sm transition-all duration-200`}
+            >
               <div
                 className={`${
-                  power ? `float-right` : `float-left`
-                } h-full w-1/2 bg-green-400 transition-all duration-500`}
+                  power ? `translate-x-full` : ``
+                } h-full w-1/2 bg-zinc-800 transition-all duration-200`}
               ></div>
             </div>
           </div>
           <div
             id="display"
-            className={`text-md h-10 w-48 overflow-hidden rounded bg-red-200 text-center font-display leading-10 tracking-wide`}
+            className={`${
+              !power ? `bg-zinc-400` : `bg-zinc-50 shadow-zinc-50`
+            } text-md my-2 h-10 w-full overflow-hidden rounded text-center font-display leading-10 tracking-wide shadow transition-all duration-200 sm:w-48`}
           >
             {display}
           </div>
-          <div id="controls">
+          <div id="controls" className={`flex w-full flex-col items-center`}>
             <input
               type="range"
               min={0}
               max={100}
-              value={sliderVal * 100}
+              value={sliderVal}
               id="volume"
               onChange={(e) => handleSlider(e)}
+              className={`${
+                !power ? `bg-zinc-400` : `bg-zinc-50 shadow-zinc-50`
+              } my-2 h-2 w-full cursor-pointer appearance-none rounded shadow transition-all duration-200 focus:outline-none`}
             />
-            <div id="kit" onClick={(e) => handleKitClick(e)}>
-              <button
-                type="button"
-                id="heater-kit"
-                className={`mx-2 rounded bg-red-200 px-1`}
-              >
-                Heater Kit
-              </button>
-              <button
-                type="button"
-                id="smooth-piano-kit"
-                className={`mx-2 rounded bg-red-200 px-1`}
-              >
-                Smooth Piano Kit
-              </button>
+            <div
+              id="kit"
+              onClick={(e) => handleKitClick(e)}
+              className={`flex flex-col`}
+            >
+              {padBank.map((bank) => {
+                return (
+                  <button
+                    key={bank.id}
+                    id={bank.id}
+                    type="button"
+                    disabled={bank.id === currentPadBank.id}
+                    className={`${
+                      !power
+                        ? `bg-zinc-400`
+                        : `bg-zinc-50 shadow-zinc-50 disabled:bg-sky-400 disabled:shadow-sky-400`
+                    } mt-3 w-full rounded py-2 px-2 font-display text-xs shadow-sm transition-all duration-200`}
+                  >
+                    {bank.name}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
