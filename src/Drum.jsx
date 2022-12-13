@@ -110,6 +110,16 @@ function Drum() {
     };
   }, []);
 
+  const handleKitClick = (e) => {
+    if (!power) return;
+    if (e.target.type !== "button") return;
+    e.preventDefault();
+    const selectedPadBank = padBank.find((bank) => bank.id === e.target.id);
+    if (!selectedPadBank) return;
+    setCurrentPadBank(() => selectedPadBank);
+    setDisplay(() => selectedPadBank.name);
+  };
+
   return (
     <main
       id="drum-machine"
@@ -157,7 +167,7 @@ function Drum() {
               id="volume"
               onChange={(e) => handleSlider(e)}
             />
-            <div id="kit">
+            <div id="kit" onClick={(e) => handleKitClick(e)}>
               <button
                 type="button"
                 id="heater-kit"
