@@ -81,6 +81,7 @@ function Drum() {
     );
     if (!namePad) return;
 
+    audio.currentTime = 0;
     audio.play();
 
     setDisplay(() => namePad.name);
@@ -96,6 +97,7 @@ function Drum() {
       if (!namePad) return;
       const audio = document.querySelector(`#${namePad.keyTrigger}`);
 
+      audio.currentTime = 0;
       audio.play();
 
       setDisplay(() => namePad.name);
@@ -124,6 +126,7 @@ function Drum() {
         >
           {currentPadBank.kits.map((kit) => (
             <button
+              tabIndex={-1}
               key={kit.id}
               id={kit.id}
               type="button"
