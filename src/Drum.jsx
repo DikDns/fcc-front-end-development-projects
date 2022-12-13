@@ -170,6 +170,19 @@ function Drum() {
         </div>
         <div className={`p-4`}>
           <div
+            id="power"
+            className={`mb-2 flex flex-col items-center justify-center`}
+          >
+            Power
+            <div className={`h-6 w-10 cursor-pointer bg-red-200 p-1`}>
+              <div
+                className={`${
+                  power ? `float-right` : `float-left`
+                } h-full w-1/2 bg-green-400 transition-all duration-500`}
+              ></div>
+            </div>
+          </div>
+          <div
             id="display"
             className={`w-full rounded bg-red-200 py-1 text-center font-display text-lg tracking-wide`}
           >
