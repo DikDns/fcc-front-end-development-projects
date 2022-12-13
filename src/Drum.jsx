@@ -78,12 +78,16 @@ function Drum() {
       audio.volume = sliderVal;
     });
     const vol = Math.round(sliderVal * 100);
-    setDisplay(() => `volume: ${vol === 0 ? `muted` : `${vol}%`}`);
+    setDisplay(() => `volume: ${vol}%`);
   }, [sliderVal]);
 
   const handlePadClick = (e) => {
     if (!power) return;
     if (!e.target.classList.contains("drum-pad")) return;
+    if (sliderVal === 0) {
+      setDisplay(() => `volume: muted`);
+      return;
+    }
     e.preventDefault();
     const audio = e.target.children[0];
     const namePad = currentPadBank.kits.find(
@@ -100,6 +104,10 @@ function Drum() {
   useEffect(() => {
     const handlePadKeyDown = (e) => {
       if (!power) return;
+      if (sliderVal === 0) {
+        setDisplay(() => `volume: muted`);
+        return;
+      }
       e.preventDefault();
       const namePad = currentPadBank.kits.find(
         (sound) => e.keyCode === sound.keyCode
@@ -114,11 +122,10 @@ function Drum() {
     };
 
     document.addEventListener(`keydown`, handlePadKeyDown);
-
     return () => {
       document.removeEventListener(`keydown`, handlePadKeyDown);
     };
-  }, []);
+  }, [sliderVal]);
 
   const handleKitClick = (e) => {
     if (!power) return;
