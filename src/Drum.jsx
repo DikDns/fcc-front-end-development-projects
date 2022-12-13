@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const HEATER = {
   id: `heater-kit`,
@@ -45,22 +45,23 @@ const KEYS = [
   [67, `C`],
 ];
 
-const padBank = SOUND_KIT.map((kit) => ({
-  id: kit.id,
-  name: kit.name,
-  kitsTotal: kit.kits.length,
-  kits: kit.kits.map((sound, i) => {
-    return {
-      id: sound.split(`.`)[0],
-      name: sound.split(`.`)[0].split(`-`).join(` `),
-      url: `./assets/sounds/${kit.id}/${sound}`,
-      keyCode: KEYS[i][0],
-      keyTrigger: KEYS[i][1],
-    };
-  }),
-}));
-
 function Drum() {
+  const [padBank, setPadBank] = useState(
+    SOUND_KIT.map((kit) => ({
+      id: kit.id,
+      name: kit.name,
+      kitsTotal: kit.kits.length,
+      kits: kit.kits.map((sound, i) => {
+        return {
+          id: sound.split(`.`)[0],
+          name: sound.split(`.`)[0].split(`-`).join(` `),
+          url: `./assets/sounds/${kit.id}/${sound}`,
+          keyCode: KEYS[i][0],
+          keyTrigger: KEYS[i][1],
+        };
+      }),
+    }))
+  );
   const [currentPadBank, setCurrentPadBank] = useState(padBank[0]);
   const [display, setDisplay] = useState(`Heater Kit`);
   const [power, setPower] = useState(true);
@@ -71,6 +72,7 @@ function Drum() {
   };
 
   const handlePadClick = (e) => {
+    if (!power) return;
     if (!e.target.classList.contains("drum-pad")) return;
     e.preventDefault();
     const audio = e.target.children[0];
@@ -83,6 +85,28 @@ function Drum() {
 
     setDisplay(() => namePad.name);
   };
+
+  useEffect(() => {
+    const handlePadKeyDown = (e) => {
+      if (!power) return;
+      e.preventDefault();
+      const namePad = currentPadBank.kits.find(
+        (sound) => e.keyCode === sound.keyCode
+      );
+      if (!namePad) return;
+      const audio = document.querySelector(`#${namePad.keyTrigger}`);
+
+      audio.play();
+
+      setDisplay(() => namePad.name);
+    };
+
+    document.addEventListener(`keydown`, handlePadKeyDown);
+
+    return () => {
+      document.removeEventListener(`keydown`, handlePadKeyDown);
+    };
+  }, []);
 
   return (
     <main
