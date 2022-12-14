@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { PLUS, MINUS, TIMES, DIVISION, checkSigns } from "./modules/mathSigns";
+import { PLUS, MINUS, TIMES, DIVISION, isOperand } from "./modules/operand";
 
 function App() {
   const [currentNum, setCurrentNum] = useState(`0`);
@@ -32,11 +32,11 @@ function App() {
 
     // ? UNDO BTN HANDLER
     if (btn.id === `undo`) {
-      if (checkSigns(calculation[calculation.length - 1])) {
+      if (isOperand(calculation[calculation.length - 1])) {
         setCalculation((prevState) => {
           const newState = [...prevState];
 
-          if (!checkSigns(newState[newState.length - 2])) {
+          if (!isOperand(newState[newState.length - 2])) {
             setCurrentNum(newState[newState.length - 2].toString());
           }
 
@@ -136,7 +136,7 @@ function App() {
     const parsedNum = parseFloat(currentNum);
 
     // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A SIGN NOT A NUM
-    if (checkSigns(calculation[calculation.length - 1])) {
+    if (isOperand(calculation[calculation.length - 1])) {
       setCalculation((prevState) => [...prevState, parsedNum]);
       return;
     }
@@ -158,8 +158,8 @@ function App() {
 
     // THERE IS A MINUS SIGN NOT SUBTRACT SIGN
     if (
-      checkSigns(calculation[calculation.length - 1]) &&
-      checkSigns(calculation[calculation.length - 2])
+      isOperand(calculation[calculation.length - 1]) &&
+      isOperand(calculation[calculation.length - 2])
     ) {
       setCalculation((prevState) => {
         const newState = [...prevState];
@@ -170,7 +170,7 @@ function App() {
       });
     }
 
-    if (checkSigns(calculation[calculation.length - 1])) {
+    if (isOperand(calculation[calculation.length - 1])) {
       setCalculation((prevState) => {
         // ALLOW TO ONLY MINUS CAN APPEND
         if (
