@@ -33,7 +33,7 @@
   }
 
   .btn {
-    @apply shadow shadow-zinc-200 flex cursor-pointer transition-all duration-200 ease-in-out justify-center items-center rounded-full w-full h-16 text-3xl;
+    @apply shadow shadow-zinc-200 flex cursor-pointer transition-colors duration-200 ease-in-out justify-center items-center rounded-full w-full h-16 text-3xl;
   }
 
   .btn:hover {
