@@ -129,7 +129,7 @@ function Drum() {
     return () => {
       document.removeEventListener(`keydown`, handlePadKeyDown);
     };
-  }, [sliderVal, power]);
+  }, [currentPadBank, sliderVal, power]);
 
   const handleKitClick = (e) => {
     if (!power) return;
