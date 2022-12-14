@@ -35,10 +35,10 @@ function App() {
         <div className={`btn order-[10] btn-secondary`} id="multiply">
           {`\u00d7`}
         </div>
-        <div className={`btn order-[14] btn-secondary`} id="subtract">
+        <div className={`btn order-[18] btn-secondary`} id="subtract">
           {`\u002b`}
         </div>
-        <div className={`btn order-[18] btn-secondary`} id="add">
+        <div className={`btn order-[14] btn-secondary`} id="add">
           {`\u2212`}
         </div>
 
