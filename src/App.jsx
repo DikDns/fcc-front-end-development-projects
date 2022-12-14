@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 function App() {
+  const [calculation, setCalculation] = useState(`0`);
+  const [result, setResult] = useState(null);
+
   return (
     <div
       className={`App min-h-screen flex flex-col justify-end font-display bg-zinc-50`}
