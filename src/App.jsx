@@ -6,7 +6,7 @@ function App() {
       className={`App min-h-screen flex flex-col justify-end font-display bg-zinc-50`}
     >
       <div id="displayContainer" className={`displayContainer`}>
-        <div id="operation" className={`display`}>
+        <div id="calculation" className={`display`}>
           {`4\u002b5\u00f75\u22124\u00d710`}
         </div>
         <div id="result" className={`display display-secondary`}>
