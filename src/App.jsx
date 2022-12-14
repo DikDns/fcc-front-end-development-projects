@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { PLUS, MINUS, TIMES, DIVISION, isOperand } from "./modules/operand";
 
 function App() {
-  const [currentNum, setCurrentNum] = useState(`0`);
-  const [currentSign, setCurrentSign] = useState(null);
+  const [number, setNumber] = useState(`0`);
+  const [operand, setOperand] = useState(null);
   // TO TRACK DOWN THE useEffect sign Hook when current sign stay the same value
-  const [signChanged, setSignChanged] = useState(false);
+  const [operandChange, setOperandChange] = useState(false);
 
   const [calculation, setCalculation] = useState([0]);
   const [result, setResult] = useState(null);
@@ -20,13 +20,13 @@ function App() {
     if (!btn.classList.contains(`btn`)) return;
 
     // Prevent Entering multiple zero
-    if (currentNum == `0` && btn.id == `zero`) return;
+    if (number == `0` && btn.id == `zero`) return;
 
     // ? AC BTN HANDLER
     if (btn.id === `clear`) {
       setCalculation(() => [0]);
-      setCurrentNum(() => `0`);
-      setCurrentSign(() => null);
+      setNumber(() => `0`);
+      setOperand(() => null);
       return;
     }
 
@@ -37,25 +37,25 @@ function App() {
           const newState = [...prevState];
 
           if (!isOperand(newState[newState.length - 2])) {
-            setCurrentNum(newState[newState.length - 2].toString());
+            setNumber(newState[newState.length - 2].toString());
           }
 
           newState.pop();
           return [...newState];
         });
-      } else if (calculation.length > 1 && currentNum.length <= 1) {
+      } else if (calculation.length > 1 && number.length <= 1) {
         setCalculation((prevState) => {
           const newState = [...prevState];
-          setCurrentNum(() => `0`);
+          setNumber(() => `0`);
           newState.pop();
           return [...newState];
         });
-      } else if (currentNum.length > 1) {
-        setCurrentNum((prevNum) => prevNum.slice(0, prevNum.length - 1));
+      } else if (number.length > 1) {
+        setNumber((prevNum) => prevNum.slice(0, prevNum.length - 1));
       } else {
         setCalculation(() => [0]);
-        setCurrentNum(() => `0`);
-        setCurrentSign(() => null);
+        setNumber(() => `0`);
+        setOperand(() => null);
       }
 
       return;
@@ -64,76 +64,76 @@ function App() {
     // ? SIGNS BTN HANDLER
     switch (btn.innerText) {
       case PLUS:
-        setCurrentSign(() => PLUS);
-        setSignChanged((prevState) => !prevState);
+        setOperand(() => PLUS);
+        setOperandChange((prevState) => !prevState);
         return;
       case MINUS:
-        setCurrentSign(() => MINUS);
-        setSignChanged((prevState) => !prevState);
+        setOperand(() => MINUS);
+        setOperandChange((prevState) => !prevState);
         return;
       case TIMES:
-        setCurrentSign(() => TIMES);
-        setSignChanged((prevState) => !prevState);
+        setOperand(() => TIMES);
+        setOperandChange((prevState) => !prevState);
         return;
       case DIVISION:
-        setCurrentSign(() => DIVISION);
-        setSignChanged((prevState) => !prevState);
+        setOperand(() => DIVISION);
+        setOperandChange((prevState) => !prevState);
         return;
     }
 
     // ? DIGIT BTN HANDLER
     // Prevent max intiger length
-    if (currentNum.length >= 15) return;
+    if (number.length >= 15) return;
 
     // Enter Initial Digit
-    if (currentNum == `0`) {
-      setCurrentNum(() => btn.innerText);
+    if (number == `0`) {
+      setNumber(() => btn.innerText);
       return;
     }
 
     // Append Next Digit
     switch (btn.id) {
       case `clear`:
-        setCurrentNum(() => `0`);
+        setNumber(() => `0`);
         return;
       case `zero`:
-        setCurrentNum((num) => (num += `0`));
+        setNumber((num) => (num += `0`));
         return;
       case `one`:
-        setCurrentNum((num) => (num += `1`));
+        setNumber((num) => (num += `1`));
         return;
       case `two`:
-        setCurrentNum((num) => (num += `2`));
+        setNumber((num) => (num += `2`));
         return;
       case `three`:
-        setCurrentNum((num) => (num += `3`));
+        setNumber((num) => (num += `3`));
         return;
       case `four`:
-        setCurrentNum((num) => (num += `4`));
+        setNumber((num) => (num += `4`));
         return;
       case `five`:
-        setCurrentNum((num) => (num += `5`));
+        setNumber((num) => (num += `5`));
         return;
       case `six`:
-        setCurrentNum((num) => (num += `6`));
+        setNumber((num) => (num += `6`));
         return;
       case `seven`:
-        setCurrentNum((num) => (num += `7`));
+        setNumber((num) => (num += `7`));
         return;
       case `eight`:
-        setCurrentNum((num) => (num += `8`));
+        setNumber((num) => (num += `8`));
         return;
       case `nine`:
-        setCurrentNum((num) => (num += `9`));
+        setNumber((num) => (num += `9`));
         return;
     }
   };
 
   useEffect(() => {
     if (!calculation) return;
-    if (currentNum == `0`) return;
+    if (number == `0`) return;
 
-    const parsedNum = parseFloat(currentNum);
+    const parsedNum = parseFloat(number);
 
     // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A SIGN NOT A NUM
     if (isOperand(calculation[calculation.length - 1])) {
@@ -147,14 +147,14 @@ function App() {
       newState.pop();
       return [...newState, parsedNum];
     });
-  }, [currentNum]);
+  }, [number]);
 
   useEffect(() => {
     if (!calculation) return;
-    if (!currentSign) return;
-    if (currentSign === calculation[calculation.length - 1]) return;
+    if (!operand) return;
+    if (operand === calculation[calculation.length - 1]) return;
 
-    setCurrentNum(() => `0`);
+    setNumber(() => `0`);
 
     // THERE IS A MINUS SIGN NOT SUBTRACT SIGN
     if (
@@ -166,33 +166,30 @@ function App() {
         // REMOVE THE MINUS SIGN
         newState.pop();
         newState.pop();
-        return [...newState, currentSign];
+        return [...newState, operand];
       });
     }
 
     if (isOperand(calculation[calculation.length - 1])) {
       setCalculation((prevState) => {
         // ALLOW TO ONLY MINUS CAN APPEND
-        if (
-          prevState[prevState.length - 1] !== MINUS &&
-          currentSign === MINUS
-        ) {
-          return [...prevState, currentSign];
+        if (prevState[prevState.length - 1] !== MINUS && operand === MINUS) {
+          return [...prevState, operand];
         }
 
         // APPEND REMOVE THE LAST SIGN AND ASSIGN NEW ONE
         const newState = [...prevState];
         newState.pop();
-        return [...newState, currentSign];
+        return [...newState, operand];
       });
       return;
     }
 
     // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A NUMBER NOT A SIGN
     setCalculation((prevState) => {
-      return [...prevState, currentSign];
+      return [...prevState, operand];
     });
-  }, [signChanged]);
+  }, [operandChange]);
 
   return (
     <div
