@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: [`"Black Ops One"`, `cursive`],
+        display: [`"Cascadia Code"`, `monospace`],
       },
     },
   },

@@ -4,9 +4,9 @@
 
 @layer base {
   @font-face {
-    font-family: "Black Ops One";
+    font-family: "Cascadia Code";
     font-weight: 400;
-    src: local("Black Ops One"),
-      url(./assets/fonts/BlackOpsOne-Regular.ttf) format("truetype");
+    src: local("Cascadia Code"),
+      url(./assets/fonts/CascadiaCode-Regular.ttf) format("truetype");
   }
 }

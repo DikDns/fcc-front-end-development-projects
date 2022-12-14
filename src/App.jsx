@@ -3,7 +3,7 @@ import { useState } from "react";
 function App() {
   return (
     <div className={`App`}>
-      <h1 className="font-display">HELLO WORLD 1234567890</h1>
+      <h1 className="font-display text-lg">HELLO 123445</h1>
     </div>
   );
 }
