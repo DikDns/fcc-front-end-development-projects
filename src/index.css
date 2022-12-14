@@ -33,15 +33,31 @@
   }
 
   .btn {
-    @apply shadow shadow-zinc-200 flex cursor-pointer transition-all duration-200 ease-in-out justify-center items-center rounded-full w-full h-16 text-3xl hover:bg-zinc-100 hover:shadow-zinc-400;
+    @apply shadow shadow-zinc-200 flex cursor-pointer transition-all duration-200 ease-in-out justify-center items-center rounded-full w-full h-16 text-3xl;
+  }
+
+  .btn:hover {
+    @apply bg-zinc-100 shadow-zinc-400;
+  }
+
+  .btn:active {
+    @apply shadow-none translate-x-0.5 -translate-y-0.5;
   }
 
   .btn-primary {
-    @apply shadow-violet-600 bg-violet-600 text-zinc-50 hover:bg-violet-500 hover:shadow-violet-500;
+    @apply shadow-violet-600 bg-violet-600 text-zinc-50;
+  }
+
+  .btn-primary:hover {
+    @apply bg-violet-500 shadow-violet-500;
   }
 
   .btn-secondary {
-    @apply text-violet-600 hover:bg-zinc-100  hover:shadow-zinc-300;
+    @apply text-violet-600;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-zinc-100  shadow-zinc-300;
   }
 
   .btn-span-2 {
