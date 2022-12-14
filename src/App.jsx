@@ -2,9 +2,16 @@ import { useState } from "react";
 
 function App() {
   return (
-    <div className={`App min-h-screen flex flex-col justify-end font-display`}>
+    <div
+      className={`App min-h-screen flex flex-col justify-end font-display bg-zinc-50`}
+    >
       <div id="displayContainer" className={`displayContainer`}>
-        DISPLAY 1234567890
+        <div id="operation" className="display">
+          {`4\u002b5\u00f75\u22124\u00d710`}
+        </div>
+        <div id="result" className="display display-secondary">
+          {`= \u221235`}
+        </div>
       </div>
 
       <div id="buttonContainer" className={`buttonContainer`}>
