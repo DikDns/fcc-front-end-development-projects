@@ -1,8 +1,24 @@
 import { useState } from "react";
 
+import { PLUS, MINUS, TIMES, DIVISION } from "./modules/mathSigns";
+
 function App() {
-  const [calculation, setCalculation] = useState(`0`);
+  const [calculation, setCalculation] = useState([
+    4,
+    PLUS,
+    5,
+    DIVISION,
+    5,
+    MINUS,
+    4,
+    TIMES,
+    10,
+  ]);
   const [result, setResult] = useState(null);
+
+  const handleBtnClick = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div
@@ -10,14 +26,18 @@ function App() {
     >
       <div id="displayContainer" className={`displayContainer`}>
         <div id="calculation" className={`display`}>
-          {`4\u002b5\u00f75\u22124\u00d710`}
+          {calculation.join("")}
         </div>
         <div id="result" className={`display display-secondary`}>
-          {`= \u221235`}
+          {result ? `= ${result}` : ``}
         </div>
       </div>
 
-      <div id="buttonContainer" className={`buttonContainer`}>
+      <div
+        id="buttonContainer"
+        className={`buttonContainer`}
+        onClick={(e) => handleBtnClick(e)}
+      >
         {/* CONTROLS AREA */}
         <div className={`btn order-[1] btn-span-2 btn-secondary`} id="clear">
           {`AC`}
