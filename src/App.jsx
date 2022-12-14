@@ -93,9 +93,6 @@ function App() {
 
     // Append Next Digit
     switch (btn.id) {
-      case `clear`:
-        setNumber(() => `0`);
-        return;
       case `zero`:
         setNumber((num) => (num += `0`));
         return;
