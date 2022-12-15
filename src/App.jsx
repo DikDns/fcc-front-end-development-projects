@@ -3,6 +3,21 @@ import { useEffect, useState } from "react";
 import { PLUS, MINUS, TIMES, DIVISION, isOperand } from "./modules/operand";
 import useCalculation from "./modules/useCalculation";
 
+const displayCalculation = (calculation = []) => {
+  return calculation
+    .map((item, i) => {
+      console.log(item);
+      if (isOperand(item) && calculation[i + 1] == MINUS) {
+        return `${item}(`;
+      } else if (calculation[i - 1] == MINUS && isOperand(calculation[i - 2])) {
+        return `${item})`;
+      } else {
+        return item;
+      }
+    })
+    .join("");
+};
+
 function App() {
   const [prevCalculation, setPrevCalculation] = useState([0]);
   const [calculation, setCalculation] = useCalculation([0]);
@@ -73,7 +88,9 @@ function App() {
             evaluated ? `display-secondary` : `display-primary`
           }`}
         >
-          {evaluated ? prevCalculation.join("") : calculation.join("")}
+          {evaluated
+            ? displayCalculation(prevCalculation)
+            : displayCalculation(calculation)}
         </div>
         <div
           id="result"
