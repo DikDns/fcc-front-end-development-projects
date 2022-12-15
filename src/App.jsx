@@ -1,192 +1,41 @@
 import { useEffect, useState } from "react";
 
 import { PLUS, MINUS, TIMES, DIVISION, isOperand } from "./modules/operand";
+import useCalculation from "./modules/useCalculation";
 
 function App() {
-  const [number, setNumber] = useState(`0`);
-  const [operand, setOperand] = useState(null);
-  // TO TRACK DOWN THE useEffect sign Hook when current sign stay the same value
-  const [operandChange, setOperandChange] = useState(false);
-
-  const [calculation, setCalculation] = useState([0]);
+  const [calculation, setCalculation] = useCalculation([0]);
   const [result, setResult] = useState(null);
 
   const handleBtnClick = (e) => {
+    // Prevent Default element behavior
     e.preventDefault();
+    // Allow only element with class btn
+    if (!e.target.classList.contains(`btn`)) return;
 
     const btn = e.target;
 
-    // Prevent other element than btn
-    if (!btn.classList.contains(`btn`)) return;
-
-    // Prevent Entering multiple zero
-    if (number == `0` && btn.id == `zero`) return;
-
     // ? AC BTN HANDLER
     if (btn.id === `clear`) {
-      setCalculation(() => [0]);
-      setNumber(() => `0`);
-      setOperand(() => null);
+      setCalculation.reset();
       return;
     }
 
     // ? UNDO BTN HANDLER
     if (btn.id === `undo`) {
-      if (isOperand(calculation[calculation.length - 1])) {
-        setCalculation((prevState) => {
-          const newState = [...prevState];
-
-          if (!isOperand(newState[newState.length - 2])) {
-            setNumber(newState[newState.length - 2].toString());
-          }
-
-          newState.pop();
-          return [...newState];
-        });
-      } else if (calculation.length > 1 && number.length <= 1) {
-        setCalculation((prevState) => {
-          const newState = [...prevState];
-          setNumber(() => `0`);
-          newState.pop();
-          return [...newState];
-        });
-      } else if (number.length > 1) {
-        setNumber((prevNum) => prevNum.slice(0, prevNum.length - 1));
-      } else {
-        setCalculation(() => [0]);
-        setNumber(() => `0`);
-        setOperand(() => null);
-      }
-
+      setCalculation.undo();
       return;
     }
 
     // ? SIGNS BTN HANDLER
-    switch (btn.innerText) {
-      case PLUS:
-        setOperand(() => PLUS);
-        setOperandChange((prevState) => !prevState);
-        return;
-      case MINUS:
-        setOperand(() => MINUS);
-        setOperandChange((prevState) => !prevState);
-        return;
-      case TIMES:
-        setOperand(() => TIMES);
-        setOperandChange((prevState) => !prevState);
-        return;
-      case DIVISION:
-        setOperand(() => DIVISION);
-        setOperandChange((prevState) => !prevState);
-        return;
+    if (isOperand(btn.innerText)) {
+      setCalculation.operand(btn.innerText);
+      return;
     }
 
     // ? DIGIT BTN HANDLER
-    // Prevent max intiger length
-    if (number.length >= 15) return;
-
-    // Enter Initial Digit
-    if (number == `0`) {
-      setNumber(() => btn.innerText);
-      return;
-    }
-
-    // Append Next Digit
-    switch (btn.id) {
-      case `zero`:
-        setNumber((num) => (num += `0`));
-        return;
-      case `one`:
-        setNumber((num) => (num += `1`));
-        return;
-      case `two`:
-        setNumber((num) => (num += `2`));
-        return;
-      case `three`:
-        setNumber((num) => (num += `3`));
-        return;
-      case `four`:
-        setNumber((num) => (num += `4`));
-        return;
-      case `five`:
-        setNumber((num) => (num += `5`));
-        return;
-      case `six`:
-        setNumber((num) => (num += `6`));
-        return;
-      case `seven`:
-        setNumber((num) => (num += `7`));
-        return;
-      case `eight`:
-        setNumber((num) => (num += `8`));
-        return;
-      case `nine`:
-        setNumber((num) => (num += `9`));
-        return;
-    }
+    setCalculation.number(btn.id);
   };
-
-  useEffect(() => {
-    if (!calculation) return;
-    if (number == `0`) return;
-
-    const parsedNum = parseFloat(number);
-
-    // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A SIGN NOT A NUM
-    if (isOperand(calculation[calculation.length - 1])) {
-      setCalculation((prevState) => [...prevState, parsedNum]);
-      return;
-    }
-
-    // CHANGE ONLY THE LAST ELEMENT
-    setCalculation((prevState) => {
-      const newState = [...prevState];
-      newState.pop();
-      return [...newState, parsedNum];
-    });
-  }, [number]);
-
-  useEffect(() => {
-    if (!calculation) return;
-    if (!operand) return;
-    if (operand === calculation[calculation.length - 1]) return;
-
-    setNumber(() => `0`);
-
-    // THERE IS A MINUS SIGN NOT SUBTRACT SIGN
-    if (
-      isOperand(calculation[calculation.length - 1]) &&
-      isOperand(calculation[calculation.length - 2])
-    ) {
-      setCalculation((prevState) => {
-        const newState = [...prevState];
-        // REMOVE THE MINUS SIGN
-        newState.pop();
-        newState.pop();
-        return [...newState, operand];
-      });
-    }
-
-    if (isOperand(calculation[calculation.length - 1])) {
-      setCalculation((prevState) => {
-        // ALLOW TO ONLY MINUS CAN APPEND
-        if (prevState[prevState.length - 1] !== MINUS && operand === MINUS) {
-          return [...prevState, operand];
-        }
-
-        // APPEND REMOVE THE LAST SIGN AND ASSIGN NEW ONE
-        const newState = [...prevState];
-        newState.pop();
-        return [...newState, operand];
-      });
-      return;
-    }
-
-    // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A NUMBER NOT A SIGN
-    setCalculation((prevState) => {
-      return [...prevState, operand];
-    });
-  }, [operandChange]);
 
   return (
     <div
