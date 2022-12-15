@@ -6,7 +6,6 @@ import useCalculation from "./modules/useCalculation";
 const displayCalculation = (calculation = []) => {
   return calculation
     .map((item, i) => {
-      console.log(item);
       if (isOperand(item) && calculation[i + 1] == MINUS) {
         return `${item}(`;
       } else if (calculation[i - 1] == MINUS && isOperand(calculation[i - 2])) {
