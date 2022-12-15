@@ -5,7 +5,8 @@ import useCalculation from "./modules/useCalculation";
 
 function App() {
   const [calculation, setCalculation] = useCalculation([0]);
-  const [result, setResult] = useState(null);
+
+  const [evaluated, setEvaluated] = useState(false);
 
   const handleBtnClick = (e) => {
     // Prevent Default element behavior
@@ -52,7 +53,7 @@ function App() {
           {calculation.join("")}
         </div>
         <div id="result" className={`display display-secondary`}>
-          {result ? `= ${result}` : ``}
+          {setCalculation.result ? `= ${setCalculation.result}` : ``}
         </div>
       </div>
 
