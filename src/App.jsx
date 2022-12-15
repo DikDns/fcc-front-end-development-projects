@@ -84,7 +84,11 @@ function App() {
         <div
           id="calculation"
           className={`display ${
-            evaluated ? `display-secondary` : `display-primary`
+            evaluated
+              ? `display-secondary`
+              : displayCalculation(calculation).length >= 14
+              ? ``
+              : `display-primary`
           }`}
         >
           {evaluated
@@ -94,7 +98,13 @@ function App() {
         <div
           id="result"
           className={`display ${
-            evaluated ? `display-primary` : `display-secondary`
+            !evaluated
+              ? `display-secondary`
+              : setCalculation.result
+              ? setCalculation.result.length >= 14
+                ? ``
+                : `display-primary`
+              : `display-primary`
           }`}
         >
           {setCalculation.result ? `= ${setCalculation.result}` : ``}

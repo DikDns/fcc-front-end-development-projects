@@ -17,7 +17,7 @@
   }
 
   .display {
-    @apply text-xl mt-1;
+    @apply text-xl mt-1 break-words;
   }
 
   .display-primary {
