@@ -22,7 +22,9 @@ function App() {
 
     // ? EQUALS BTN HANDLER
     if (btn.id === `equals`) {
+      if (calculation.length <= 1 && calculation[0] === 0) return;
       setEvaluated(() => true);
+      return;
     }
 
     // ? AC BTN HANDLER
