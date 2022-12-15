@@ -67,7 +67,9 @@ function App() {
       <div id="displayContainer" className={`displayContainer`}>
         <div
           id="calculation"
-          className={`display ${evaluated ? `display-secondary` : ``}`}
+          className={`display ${
+            evaluated ? `display-secondary` : `display-primary`
+          }`}
         >
           {evaluated ? prevCalculation.join("") : calculation.join("")}
         </div>
