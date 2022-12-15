@@ -55,14 +55,14 @@ export default function (defaultProp) {
         newState.pop();
         return [...newState];
       });
-    } else if (calculation.length > 1 && number.length <= 1) {
+    } else if (calculation.length > 1 && currentNumber.length <= 1) {
       setCalculation((prevState) => {
         const newState = [...prevState];
         reset(`number`);
         newState.pop();
         return [...newState];
       });
-    } else if (number.length > 1) {
+    } else if (currentNumber.length > 1) {
       setCurrentNumber((prevNum) => prevNum.slice(0, prevNum.length - 1));
     } else {
       reset(`all`);
@@ -97,47 +97,47 @@ export default function (defaultProp) {
 
   function number(target) {
     // Prevent max intiger length
-    if (number.length >= 15) return false;
+    if (currentNumber.length >= 15) return false;
 
     // Prevent Entering multiple zero
     if (currentNumber == `0` && target == `zero`) return false;
 
     // Enter Initial Digit
-    if (number == `0`) {
+    if (currentNumber == `0`) {
       setCurrentNumber(() => target);
       return true;
     }
 
     // Append Next Digit
     switch (target) {
-      case `zero`:
+      case `0`:
         setCurrentNumber((num) => (num += `0`));
         break;
-      case `one`:
+      case `1`:
         setCurrentNumber((num) => (num += `1`));
         break;
-      case `two`:
+      case `2`:
         setCurrentNumber((num) => (num += `2`));
         break;
-      case `three`:
+      case `3`:
         setCurrentNumber((num) => (num += `3`));
         break;
-      case `four`:
+      case `4`:
         setCurrentNumber((num) => (num += `4`));
         break;
-      case `five`:
+      case `5`:
         setCurrentNumber((num) => (num += `5`));
         break;
-      case `six`:
+      case `6`:
         setCurrentNumber((num) => (num += `6`));
         break;
-      case `seven`:
+      case `7`:
         setCurrentNumber((num) => (num += `7`));
         break;
-      case `eight`:
+      case `8`:
         setCurrentNumber((num) => (num += `8`));
         break;
-      case `nine`:
+      case `9`:
         setCurrentNumber((num) => (num += `9`));
         break;
       default:
@@ -147,15 +147,27 @@ export default function (defaultProp) {
     return true;
   }
 
+  function decimal() {
+    // Prevent max float length
+    if (currentNumber.length >= 20) return false;
+
+    // Prevent multiple decimal
+    if (currentNumber.includes(`.`)) return false;
+
+    setCurrentNumber((num) => (num += `.`));
+
+    return true;
+  }
+
   useEffect(() => {
     if (!calculation) return;
-    if (currentNumber == `0`) return;
 
-    const parsedNum = parseFloat(currentNumber);
+    console.log(currentNumber);
+    if (currentNumber == `0`) return;
 
     // APPEND INSTANLY BCZ THE LAST ELEMENT IS JUST A SIGN NOT A NUM
     if (isOperand(calculation[calculation.length - 1])) {
-      setCalculation((prevState) => [...prevState, parsedNum]);
+      setCalculation((prevState) => [...prevState, currentNumber]);
       return;
     }
 
@@ -163,7 +175,7 @@ export default function (defaultProp) {
     setCalculation((prevState) => {
       const newState = [...prevState];
       newState.pop();
-      return [...newState, parsedNum];
+      return [...newState, currentNumber];
     });
   }, [currentNumber]);
 
@@ -212,5 +224,5 @@ export default function (defaultProp) {
     });
   }, [currentOperandChange]);
 
-  return [calculation, { reset, undo, operand, number }];
+  return [calculation, { reset, undo, decimal, operand, number }];
 }

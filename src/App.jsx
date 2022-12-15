@@ -40,7 +40,7 @@ function App() {
     }
 
     // ? DIGIT BTN HANDLER
-    setCalculation.number(btn.id);
+    setCalculation.number(btn.innerText);
   };
 
   return (
