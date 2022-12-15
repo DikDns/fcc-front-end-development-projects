@@ -12,6 +12,10 @@
 }
 
 @layer components {
+  .App {
+    @apply overflow-hidden min-h-screen flex flex-col justify-end font-display bg-zinc-50 sm:shadow-lg sm:shadow-violet-500 sm:w-96 sm:min-h-[90vh] sm:mx-auto sm:mt-5 sm:rounded-xl;
+  }
+
   .displayContainer {
     @apply bg-zinc-50 text-black py-2 px-4 text-right;
   }
