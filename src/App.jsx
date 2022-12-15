@@ -18,8 +18,8 @@ const displayCalculation = (calculation = []) => {
 };
 
 function App() {
-  const [prevCalculation, setPrevCalculation] = useState([0]);
   const [calculation, setCalculation] = useCalculation([0]);
+  const [prevCalculation, setPrevCalculation] = useState([0]);
   const [evaluated, setEvaluated] = useState(false);
 
   const handleBtnClick = (e) => {
@@ -77,9 +77,7 @@ function App() {
   }, [evaluated]);
 
   return (
-    <div
-      className={`App min-h-screen flex flex-col justify-end font-display bg-zinc-50`}
-    >
+    <div className={`App`}>
       <div id="displayContainer" className={`displayContainer`}>
         <div
           id="calculation"
