@@ -33,6 +33,12 @@ function App() {
       return;
     }
 
+    // ? DECIMAL BTN HANDLER
+    if (btn.id === `decimal`) {
+      setCalculation.decimal();
+      return;
+    }
+
     // ? DIGIT BTN HANDLER
     setCalculation.number(btn.id);
   };
