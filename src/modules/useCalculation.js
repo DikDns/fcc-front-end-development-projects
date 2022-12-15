@@ -294,6 +294,18 @@ export default function (defaultProp) {
     return true;
   }
 
+  function evaluate() {
+    if (!calculation) return false;
+    if (!result) return false;
+    if (currentNumber === DEFAULT_NUMBER) return false;
+    if (calculation.length <= 1) return false;
+
+    reset(`operand`);
+    setCurrentNumber(() => result.toString());
+    setCalculation(() => [result.toString()]);
+    return true;
+  }
+
   // ? TRACK CHANGES ON: currentNumber
   useEffect(() => {
     if (!calculation) return;
@@ -380,5 +392,16 @@ export default function (defaultProp) {
     setResult(() => tempResult);
   }, [calculation]);
 
-  return [calculation, { result, reset, undo, decimal, operand, number }];
+  return [
+    calculation,
+    {
+      result,
+      reset,
+      undo,
+      decimal,
+      operand,
+      number,
+      evaluate,
+    },
+  ];
 }

@@ -4,8 +4,8 @@ import { PLUS, MINUS, TIMES, DIVISION, isOperand } from "./modules/operand";
 import useCalculation from "./modules/useCalculation";
 
 function App() {
+  const [prevCalculation, setPrevCalculation] = useState([0]);
   const [calculation, setCalculation] = useCalculation([0]);
-
   const [evaluated, setEvaluated] = useState(false);
 
   const handleBtnClick = (e) => {
@@ -14,7 +14,16 @@ function App() {
     // Allow only element with class btn
     if (!e.target.classList.contains(`btn`)) return;
 
+    // Reset
+    setEvaluated(() => false);
+    setPrevCalculation(() => [0]);
+
     const btn = e.target;
+
+    // ? EQUALS BTN HANDLER
+    if (btn.id === `equals`) {
+      setEvaluated(() => true);
+    }
 
     // ? AC BTN HANDLER
     if (btn.id === `clear`) {
@@ -44,15 +53,30 @@ function App() {
     setCalculation.number(btn.innerText);
   };
 
+  useEffect(() => {
+    if (evaluated) {
+      setPrevCalculation(() => [...calculation]);
+      setCalculation.evaluate();
+    }
+  }, [evaluated]);
+
   return (
     <div
       className={`App min-h-screen flex flex-col justify-end font-display bg-zinc-50`}
     >
       <div id="displayContainer" className={`displayContainer`}>
-        <div id="calculation" className={`display`}>
-          {calculation.join("")}
+        <div
+          id="calculation"
+          className={`display ${evaluated ? `display-secondary` : ``}`}
+        >
+          {evaluated ? prevCalculation.join("") : calculation.join("")}
         </div>
-        <div id="result" className={`display display-secondary`}>
+        <div
+          id="result"
+          className={`display ${
+            evaluated ? `display-primary` : `display-secondary`
+          }`}
+        >
           {setCalculation.result ? `= ${setCalculation.result}` : ``}
         </div>
       </div>
