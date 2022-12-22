@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 import useTimer, { TIMER_STATE } from "./hooks/useTimer";
-
+// Default Duration in Seconds
+const DEFAULT_DURATION_UNIT = 5;
 // 25 Minutes = 1500 Seconds
 const DEFAULT_DURATION_SESSION = 1500;
 // 5 Minutes = 300 Seconds
@@ -60,7 +61,7 @@ export default function App() {
     e.preventDefault();
 
     if (timer.state === TIMER_STATE.STOPPED) {
-      const duration = sessionLength * 60;
+      const duration = sessionLength * DEFAULT_DURATION_UNIT;
       setTimer(() => ({ start: true, duration }));
     }
 
@@ -73,7 +74,25 @@ export default function App() {
     }
   };
 
-  console.log(timer);
+  useEffect(() => {
+    if (timer.duration > 0) return;
+
+    setTimeout(() => {
+      if (type === `Session`) {
+        const duration = breakLength * DEFAULT_DURATION_UNIT;
+        setTimer(() => ({ start: true, duration }));
+        setType(() => `Break`);
+        return;
+      }
+
+      if (type === `Break`) {
+        const duration = sessionLength * DEFAULT_DURATION_UNIT;
+        setTimer(() => ({ start: true, duration }));
+        setType(() => `Session`);
+        return;
+      }
+    }, 1000);
+  }, [timer.duration]);
 
   return (
     <main
