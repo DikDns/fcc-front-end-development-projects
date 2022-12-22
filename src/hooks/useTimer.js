@@ -9,7 +9,7 @@ export default function useTimer(durationArg) {
   const [states, setStates] = useState({
     duration: duration,
     start: false,
-    pause: false,
+    stop: false,
     reset: false,
   });
   const [currentState, setCurrentState] = useState(STATE_STOPPED);
@@ -79,8 +79,8 @@ export default function useTimer(durationArg) {
     if (!newStates.hasOwnProperty(`start`)) {
       newStates.start = false;
     }
-    if (!newStates.hasOwnProperty(`pause`)) {
-      newStates.pause = false;
+    if (!newStates.hasOwnProperty(`stop`)) {
+      newStates.stop = false;
     }
     if (!newStates.hasOwnProperty(`reset`)) {
       newStates.reset = false;
@@ -90,7 +90,7 @@ export default function useTimer(durationArg) {
     }
 
     // Prevent multiple states true
-    if (newStates.start && (newStates.pause || newStates.reset)) return false;
+    if (newStates.start && (newStates.stop || newStates.reset)) return false;
 
     setStates(() => newStates);
     setDuration(() => newStates.duration);
@@ -104,13 +104,13 @@ export default function useTimer(durationArg) {
   }, [duration]);
 
   useEffect(() => {
-    if (states.start && (states.pause || states.reset)) return;
+    if (states.start && (states.stop || states.reset)) return;
 
     if (states.start) {
       startTimer(states.duration);
     }
 
-    if (states.pause) {
+    if (states.stop) {
       stopTimer();
     }
 
