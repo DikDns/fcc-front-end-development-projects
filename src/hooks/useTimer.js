@@ -131,3 +131,5 @@ export default function useTimer(durationArg) {
 
   return [{ duration, display, state: currentState }, setTimer];
 }
+
+export const TIMER_STATE = { RUNNING: STATE_RUNNING, STOPPED: STATE_STOPPED };
