@@ -117,6 +117,7 @@ export default function useTimer(durationArg) {
     if (duration <= 0) {
       setCurrentState(() => STATE_STOPPED);
       stopTimer();
+      setDisplay(() => null);
     }
   }, [duration]);
 
