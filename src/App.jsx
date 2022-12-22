@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import useTimer, { TIMER_STATE } from "./hooks/useTimer";
+
 // Default Duration in Seconds
-const DEFAULT_DURATION_UNIT = 5;
+const DEFAULT_DURATION_UNIT = 60;
 // 25 Minutes = 1500 Seconds
 const DEFAULT_DURATION_SESSION = 1500;
 // 5 Minutes = 300 Seconds
@@ -14,6 +15,8 @@ const ID_BREAK_INCREMENT = "break-increment";
 const ID_BREAK_DECREMENT = "break-decrement";
 
 export default function App() {
+  const beep = useRef(null);
+
   const [timer, setTimer] = useTimer(DEFAULT_DURATION_SESSION);
   const [type, setType] = useState(`Session`);
 
@@ -51,6 +54,11 @@ export default function App() {
 
   const handleReset = (e) => {
     e.preventDefault();
+
+    beep.current.pause();
+    beep.current.currentTime = 0;
+    beep.current.volume = 1;
+
     setType(() => `Session`);
     setSessionLength(() => DEFAULT_DURATION_SESSION / 60);
     setBreakLength(() => DEFAULT_DURATION_BREAK / 60);
@@ -77,21 +85,23 @@ export default function App() {
   useEffect(() => {
     if (timer.duration > 0) return;
 
-    setTimeout(() => {
-      if (type === `Session`) {
-        const duration = breakLength * DEFAULT_DURATION_UNIT;
-        setTimer(() => ({ start: true, duration }));
-        setType(() => `Break`);
-        return;
-      }
+    beep.current.currentTime = 0;
+    beep.current.volume = 1;
+    beep.current.play();
 
-      if (type === `Break`) {
-        const duration = sessionLength * DEFAULT_DURATION_UNIT;
-        setTimer(() => ({ start: true, duration }));
-        setType(() => `Session`);
-        return;
-      }
-    }, 1000);
+    if (type === `Session`) {
+      const duration = breakLength * DEFAULT_DURATION_UNIT;
+      setTimer(() => ({ start: true, duration }));
+      setType(() => `Break`);
+      return;
+    }
+
+    if (type === `Break`) {
+      const duration = sessionLength * DEFAULT_DURATION_UNIT;
+      setTimer(() => ({ start: true, duration }));
+      setType(() => `Session`);
+      return;
+    }
   }, [timer.duration]);
 
   return (
@@ -99,6 +109,8 @@ export default function App() {
       id="App"
       className="flex flex-col justify-center items-center text-3xl"
     >
+      <audio src="./assets/sounds/beep.mp3" id="beep" ref={beep}></audio>
+
       <div className="container">
         <label className="timerLabel" id="timer-label">
           {type || `Session`}
