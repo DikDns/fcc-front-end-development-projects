@@ -2,14 +2,16 @@ import { useState, useEffect } from "react";
 
 const STATE_RUNNING = `running`;
 const STATE_STOPPED = `stopped`;
+const STATE_PAUSED = `paused`;
 
 export default function useTimer(durationArg) {
   const [duration, setDuration] = useState(durationArg);
-  const [display, setDisplay] = useState();
+  const [display, setDisplay] = useState(null);
   const [states, setStates] = useState({
     duration: duration,
     start: false,
     stop: false,
+    pause: false,
     reset: false,
   });
   const [currentState, setCurrentState] = useState(STATE_STOPPED);
@@ -20,8 +22,6 @@ export default function useTimer(durationArg) {
     if (intervalId) {
       clearInterval(intervalId);
     }
-
-    setCurrentState(() => STATE_RUNNING);
 
     let start = Date.now(),
       diff,
@@ -54,16 +54,29 @@ export default function useTimer(durationArg) {
     timer();
 
     const currentIntervalId = setInterval(timer, 1000);
+
     setIntervalId(() => currentIntervalId);
+    setStates((states) => ({
+      ...states,
+      start: false,
+      stop: false,
+      pause: false,
+      reset: false,
+    }));
   }
 
   function stopTimer() {
     if (!intervalId) return;
-
-    setCurrentState(() => STATE_STOPPED);
-
     clearInterval(intervalId);
     setIntervalId(() => null);
+
+    setStates((states) => ({
+      ...states,
+      start: false,
+      stop: false,
+      pause: false,
+      reset: false,
+    }));
   }
 
   function setTimer(stateArgs) {
@@ -84,6 +97,9 @@ export default function useTimer(durationArg) {
     }
     if (!newStates.hasOwnProperty(`reset`)) {
       newStates.reset = false;
+    }
+    if (!newStates.hasOwnProperty(`pause`)) {
+      newStates.pause = false;
     }
     if (!newStates.hasOwnProperty(`duration`)) {
       newStates.duration = duration;
@@ -107,20 +123,32 @@ export default function useTimer(durationArg) {
     if (states.start && (states.stop || states.reset)) return;
 
     if (states.start) {
+      setCurrentState(() => STATE_RUNNING);
       startTimer(states.duration);
     }
 
+    if (states.pause) {
+      setCurrentState(() => STATE_PAUSED);
+      stopTimer();
+    }
+
     if (states.stop) {
+      setCurrentState(() => STATE_STOPPED);
       stopTimer();
     }
 
     if (states.reset) {
+      setCurrentState(() => STATE_STOPPED);
       stopTimer();
-      startTimer(states.duration);
+      setDisplay(() => null);
     }
   }, [states]);
 
   return [{ duration, display, state: currentState }, setTimer];
 }
 
-export const TIMER_STATE = { RUNNING: STATE_RUNNING, STOPPED: STATE_STOPPED };
+export const TIMER_STATE = {
+  RUNNING: STATE_RUNNING,
+  STOPPED: STATE_STOPPED,
+  PAUSED: STATE_PAUSED,
+};
