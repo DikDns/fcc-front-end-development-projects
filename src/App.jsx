@@ -1,6 +1,80 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import useTimer, { TIMER_STATE } from "./hooks/useTimer";
+
+// 25 Minutes = 1500 Seconds
+const DEFAULT_DURATION_SESSION = 1500;
+// 5 Minutes = 300 Seconds
+const DEFAULT_DURATION_BREAK = 300;
+
+const ID_SESSION_INCREMENT = "session-increment";
+const ID_SESSION_DECREMENT = "session-decrement";
+const ID_BREAK_INCREMENT = "break-increment";
+const ID_BREAK_DECREMENT = "break-decrement";
 
 export default function App() {
+  const [timer, setTimer] = useTimer(DEFAULT_DURATION_SESSION);
+  const [type, setType] = useState(`Session`);
+
+  const [breakLength, setBreakLength] = useState(DEFAULT_DURATION_BREAK / 60);
+  const [sessionLength, setSessionLength] = useState(
+    DEFAULT_DURATION_SESSION / 60
+  );
+
+  const handleBtnClick = (e) => {
+    if (timer.state === TIMER_STATE.RUNNING) return;
+
+    e.preventDefault();
+    const btn = e.target;
+
+    if (btn.id === ID_BREAK_INCREMENT) {
+      if (breakLength >= 60) return;
+      setBreakLength((prevState) => prevState + 1);
+    }
+
+    if (btn.id === ID_BREAK_DECREMENT) {
+      if (breakLength <= 1) return;
+      setBreakLength((prevState) => prevState - 1);
+    }
+
+    if (btn.id === ID_SESSION_INCREMENT) {
+      if (sessionLength >= 60) return;
+      setSessionLength((prevState) => prevState + 1);
+    }
+
+    if (btn.id === ID_SESSION_DECREMENT) {
+      if (sessionLength <= 1) return;
+      setSessionLength((prevState) => prevState - 1);
+    }
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setType(() => `Session`);
+    setSessionLength(() => DEFAULT_DURATION_SESSION / 60);
+    setBreakLength(() => DEFAULT_DURATION_BREAK / 60);
+    setTimer(() => ({ reset: true }));
+  };
+
+  const handleStartStop = (e) => {
+    e.preventDefault();
+
+    if (timer.state === TIMER_STATE.STOPPED) {
+      const duration = sessionLength * 60;
+      setTimer(() => ({ start: true, duration }));
+    }
+
+    if (timer.state === TIMER_STATE.PAUSED) {
+      setTimer(() => ({ start: true }));
+    }
+
+    if (timer.state === TIMER_STATE.RUNNING) {
+      setTimer(() => ({ pause: true }));
+    }
+  };
+
+  console.log(timer);
+
   return (
     <main
       id="App"
@@ -8,13 +82,18 @@ export default function App() {
     >
       <div className="container">
         <label className="timerLabel" id="timer-label">
-          Session
+          {type || `Session`}
         </label>
         <div className="display" id="time-left">
-          25:00
+          {timer.display ||
+            `${sessionLength < 10 ? `0` + sessionLength : sessionLength}:00`}
         </div>
-        <button id="reset">{`⏹️`}</button>
-        <button id="start_stop">{`⏯️`}</button>
+        <button id="reset" onClick={(e) => handleReset(e)}>
+          {`⏹️`}
+        </button>
+        <button id="start_stop" onClick={(e) => handleStartStop(e)}>
+          {`⏯️`}
+        </button>
       </div>
 
       <div className="container">
@@ -23,11 +102,17 @@ export default function App() {
             Break Length
           </label>
           <div className="container flex">
-            <button id="break-increment">{`+`}</button>
+            <button
+              id={ID_BREAK_INCREMENT}
+              onClick={(e) => handleBtnClick(e)}
+            >{`+`}</button>
             <div className="display" id="break-length">
-              5
+              {breakLength || `5`}
             </div>
-            <button id="break-decrement">{`-`}</button>
+            <button
+              id={ID_BREAK_DECREMENT}
+              onClick={(e) => handleBtnClick(e)}
+            >{`-`}</button>
           </div>
         </div>
         <div className="sessionContainer">
@@ -35,11 +120,17 @@ export default function App() {
             Session Length
           </label>
           <div className="container flex">
-            <button id="session-increment">{`+`}</button>
+            <button
+              id={ID_SESSION_INCREMENT}
+              onClick={(e) => handleBtnClick(e)}
+            >{`+`}</button>
             <div className="display" id="session-length">
-              5
+              {sessionLength || `25`}
             </div>
-            <button id="session-decrement">{`-`}</button>
+            <button
+              id={ID_SESSION_DECREMENT}
+              onClick={(e) => handleBtnClick(e)}
+            >{`-`}</button>
           </div>
         </div>
       </div>
