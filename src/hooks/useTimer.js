@@ -76,11 +76,6 @@ export default function useTimer(durationArg) {
       newStates = { ...stateArgs };
     }
 
-    if (newStates.hasOwnProperty(`duration`) && !newStates.start) {
-      newStates.start = true;
-    }
-    console.log(newStates);
-
     if (!newStates.hasOwnProperty(`start`)) {
       newStates.start = false;
     }
@@ -93,11 +88,6 @@ export default function useTimer(durationArg) {
     if (!newStates.hasOwnProperty(`duration`)) {
       newStates.duration = duration;
     }
-
-    // auto start if duration specified
-    // if (stateArgs.hasOwnProperty(`duration`) && ) {
-    //   newStates.start = true;
-    // }
 
     // Prevent multiple states true
     if (newStates.start && (newStates.pause || newStates.reset)) return false;
