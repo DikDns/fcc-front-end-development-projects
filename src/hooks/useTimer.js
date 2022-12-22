@@ -115,6 +115,7 @@ export default function useTimer(durationArg) {
 
   useEffect(() => {
     if (duration <= 0) {
+      setCurrentState(() => STATE_STOPPED);
       stopTimer();
     }
   }, [duration]);
