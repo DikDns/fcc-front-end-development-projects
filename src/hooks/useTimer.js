@@ -93,6 +93,7 @@ export default function useTimer(durationArg) {
     if (newStates.start && (newStates.pause || newStates.reset)) return false;
 
     setStates(() => newStates);
+    setDuration(() => newStates.duration);
     return true;
   }
 
