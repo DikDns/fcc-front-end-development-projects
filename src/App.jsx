@@ -112,6 +112,53 @@ export default function App() {
       <audio src="./assets/sounds/beep.mp3" id="beep" ref={beep}></audio>
 
       <div className="container">
+        <div className="breakContainer">
+          <label className="breakLabel" id="break-label">
+            Break Length
+          </label>
+          <div className="container flex">
+            <button
+              id={ID_BREAK_INCREMENT}
+              onClick={(e) => handleBtnClick(e)}
+              className="btn"
+            >{`+`}</button>
+            <div className="display" id="break-length">
+              {breakLength || `5`}
+            </div>
+            <button
+              id={ID_BREAK_DECREMENT}
+              onClick={(e) => handleBtnClick(e)}
+              className="btn"
+            >{`-`}</button>
+          </div>
+        </div>
+        <div className="sessionContainer">
+          <label className="sessionLabel" id="session-label">
+            Session Length
+          </label>
+          <div className="container flex">
+            <button
+              id={ID_SESSION_INCREMENT}
+              onClick={(e) => handleBtnClick(e)}
+              className="btn"
+            >
+              {`+`}
+            </button>
+            <div className="display" id="session-length">
+              {sessionLength || `25`}
+            </div>
+            <button
+              id={ID_SESSION_DECREMENT}
+              onClick={(e) => handleBtnClick(e)}
+              className="btn"
+            >
+              {`-`}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
         <label className="timerLabel" id="timer-label">
           {type || `Session`}
         </label>
@@ -125,45 +172,6 @@ export default function App() {
         <button id="start_stop" onClick={(e) => handleStartStop(e)}>
           {`⏯️`}
         </button>
-      </div>
-
-      <div className="container">
-        <div className="breakContainer">
-          <label className="breakLabel" id="break-label">
-            Break Length
-          </label>
-          <div className="container flex">
-            <button
-              id={ID_BREAK_INCREMENT}
-              onClick={(e) => handleBtnClick(e)}
-            >{`+`}</button>
-            <div className="display" id="break-length">
-              {breakLength || `5`}
-            </div>
-            <button
-              id={ID_BREAK_DECREMENT}
-              onClick={(e) => handleBtnClick(e)}
-            >{`-`}</button>
-          </div>
-        </div>
-        <div className="sessionContainer">
-          <label className="sessionLabel" id="session-label">
-            Session Length
-          </label>
-          <div className="container flex">
-            <button
-              id={ID_SESSION_INCREMENT}
-              onClick={(e) => handleBtnClick(e)}
-            >{`+`}</button>
-            <div className="display" id="session-length">
-              {sessionLength || `25`}
-            </div>
-            <button
-              id={ID_SESSION_DECREMENT}
-              onClick={(e) => handleBtnClick(e)}
-            >{`-`}</button>
-          </div>
-        </div>
       </div>
     </main>
   );
