@@ -37,7 +37,7 @@ export default function App() {
     if (timer.state === TIMER_STATE.RUNNING) return;
 
     e.preventDefault();
-    const btn = e.target;
+    const btn = e.currentTarget;
 
     if (btn.id === ID_BREAK_INCREMENT) {
       if (breakLength >= 60) return;
