@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faPlusCircle,
+  faMinusCircle,
   faPlayCircle,
   faStopCircle,
   faPauseCircle,
@@ -124,18 +126,22 @@ export default function App() {
           </label>
           <div className="container flex">
             <button
-              id={ID_BREAK_INCREMENT}
+              id={ID_BREAK_DECREMENT}
               onClick={(e) => handleBtnClick(e)}
               className="btn"
-            >{`+`}</button>
+            >
+              <FontAwesomeIcon icon={faMinusCircle} />
+            </button>
             <div className="display" id="break-length">
               {breakLength || `5`}
             </div>
             <button
-              id={ID_BREAK_DECREMENT}
+              id={ID_BREAK_INCREMENT}
               onClick={(e) => handleBtnClick(e)}
               className="btn"
-            >{`-`}</button>
+            >
+              <FontAwesomeIcon icon={faPlusCircle} />
+            </button>
           </div>
         </div>
         <div className="sessionContainer">
@@ -144,21 +150,21 @@ export default function App() {
           </label>
           <div className="container flex">
             <button
-              id={ID_SESSION_INCREMENT}
+              id={ID_SESSION_DECREMENT}
               onClick={(e) => handleBtnClick(e)}
               className="btn"
             >
-              {`+`}
+              <FontAwesomeIcon icon={faMinusCircle} />
             </button>
             <div className="display" id="session-length">
               {sessionLength || `25`}
             </div>
             <button
-              id={ID_SESSION_DECREMENT}
+              id={ID_SESSION_INCREMENT}
               onClick={(e) => handleBtnClick(e)}
               className="btn"
             >
-              {`-`}
+              <FontAwesomeIcon icon={faPlusCircle} />
             </button>
           </div>
         </div>
