@@ -191,11 +191,13 @@ export default function App() {
             {timer.display ||
               `${sessionLength < 10 ? `0` + sessionLength : sessionLength}:00`}
           </div>
-          <div className={`controls ${
-            timer.duration < 60 && timer.state === TIMER_STATE.RUNNING
-              ? "animate-pulse"
-              : ""
-          }`}>
+          <div
+            className={`controls ${
+              timer.duration < 60 && timer.state === TIMER_STATE.RUNNING
+                ? "animate-pulse"
+                : ""
+            }`}
+          >
             <button className="btn" id="reset" onClick={(e) => handleReset(e)}>
               <FontAwesomeIcon icon={faStopCircle} />
             </button>
