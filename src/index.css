@@ -4,9 +4,9 @@
 
 @layer components {
   .app {
-    @apply cursor-default;
+    @apply cursor-default text-white text-2xl font-sans;
     @apply min-h-screen flex flex-col justify-center items-center;
-    @apply bg-gradient-to-tl from-teal-700 to-emerald-600 text-white text-2xl;
+    @apply bg-gradient-to-tl from-teal-700 to-emerald-600;
   }
 
   .main {
@@ -24,7 +24,7 @@
 
   .timer {
     @apply flex flex-col justify-evenly items-center gap-2;
-    @apply rounded-full w-72 h-72 py-4 mx-auto mt-16 mb-8;
+    @apply rounded-full w-72 h-72 py-4 mx-auto mt-16 mb-8 font-bold;
     @apply bg-gradient-to-tr from-teal-700 to-emerald-600 drop-shadow;
     @apply sm:w-80 sm:h-80;
   }
