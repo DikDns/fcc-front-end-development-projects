@@ -1,4 +1,10 @@
 import { useEffect, useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlayCircle,
+  faStopCircle,
+  faPauseCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 import useTimer, { TIMER_STATE } from "./hooks/useTimer";
 
@@ -167,10 +173,10 @@ export default function App() {
             `${sessionLength < 10 ? `0` + sessionLength : sessionLength}:00`}
         </div>
         <button id="reset" onClick={(e) => handleReset(e)}>
-          {`⏹️`}
+          <FontAwesomeIcon icon={faStopCircle} />
         </button>
         <button id="start_stop" onClick={(e) => handleStartStop(e)}>
-          {`⏯️`}
+          <FontAwesomeIcon icon={faPlayCircle} />
         </button>
       </div>
     </main>
