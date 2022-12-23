@@ -113,78 +113,106 @@ export default function App() {
   }, [timer.duration]);
 
   return (
-    <main
-      id="App"
-      className="flex flex-col justify-center items-center text-3xl"
-    >
+    <div id="app" className="app">
       <audio src="./assets/sounds/beep.mp3" id="beep" ref={beep}></audio>
 
-      <div className="container">
-        <div className="breakContainer">
-          <label className="breakLabel" id="break-label">
-            Break Length
-          </label>
-          <div className="container flex">
-            <button
-              id={ID_BREAK_DECREMENT}
-              onClick={(e) => handleBtnClick(e)}
-              className="btn"
-            >
-              <FontAwesomeIcon icon={faMinusCircle} />
-            </button>
-            <div className="display" id="break-length">
-              {breakLength || `5`}
+      <main id="main" className="main">
+        <div className="settings" id="break">
+          <div className="setting">
+            <label className="breakLabel" id="break-label">
+              Break Length
+            </label>
+            <div className="btn-wrapper">
+              <button
+                id={ID_BREAK_DECREMENT}
+                onClick={(e) => handleBtnClick(e)}
+                className="btn"
+              >
+                <FontAwesomeIcon icon={faMinusCircle} />
+              </button>
+              <div className="display" id="break-length">
+                {breakLength || `5`}
+              </div>
+              <button
+                id={ID_BREAK_INCREMENT}
+                onClick={(e) => handleBtnClick(e)}
+                className="btn"
+              >
+                <FontAwesomeIcon icon={faPlusCircle} />
+              </button>
             </div>
-            <button
-              id={ID_BREAK_INCREMENT}
-              onClick={(e) => handleBtnClick(e)}
-              className="btn"
-            >
-              <FontAwesomeIcon icon={faPlusCircle} />
-            </button>
           </div>
-        </div>
-        <div className="sessionContainer">
-          <label className="sessionLabel" id="session-label">
-            Session Length
-          </label>
-          <div className="container flex">
-            <button
-              id={ID_SESSION_DECREMENT}
-              onClick={(e) => handleBtnClick(e)}
-              className="btn"
-            >
-              <FontAwesomeIcon icon={faMinusCircle} />
-            </button>
-            <div className="display" id="session-length">
-              {sessionLength || `25`}
-            </div>
-            <button
-              id={ID_SESSION_INCREMENT}
-              onClick={(e) => handleBtnClick(e)}
-              className="btn"
-            >
-              <FontAwesomeIcon icon={faPlusCircle} />
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div className="container">
-        <label className="timerLabel" id="timer-label">
-          {type || `Session`}
-        </label>
-        <div className="display" id="time-left">
-          {timer.display ||
-            `${sessionLength < 10 ? `0` + sessionLength : sessionLength}:00`}
+          <div className="setting" id="session">
+            <label className="sessionLabel" id="session-label">
+              Session Length
+            </label>
+            <div className="btn-wrapper">
+              <button
+                id={ID_SESSION_DECREMENT}
+                onClick={(e) => handleBtnClick(e)}
+                className="btn"
+              >
+                <FontAwesomeIcon icon={faMinusCircle} />
+              </button>
+              <div className="display" id="session-length">
+                {sessionLength || `25`}
+              </div>
+              <button
+                id={ID_SESSION_INCREMENT}
+                onClick={(e) => handleBtnClick(e)}
+                className="btn"
+              >
+                <FontAwesomeIcon icon={faPlusCircle} />
+              </button>
+            </div>
+          </div>
         </div>
-        <button id="reset" onClick={(e) => handleReset(e)}>
-          <FontAwesomeIcon icon={faStopCircle} />
-        </button>
-        <button id="start_stop" onClick={(e) => handleStartStop(e)}>
-          <FontAwesomeIcon icon={faPlayCircle} />
-        </button>
-      </div>
-    </main>
+
+        <div className={`timer`}>
+          <label
+            className={`timerLabel ${
+              timer.duration < 60 && timer.state === TIMER_STATE.RUNNING
+                ? "animate-pulse"
+                : ""
+            }`}
+            id="timer-label"
+          >
+            {type || `Session`}
+          </label>
+          <div
+            className={`timerDisplay ${
+              timer.duration < 60 && timer.state === TIMER_STATE.RUNNING
+                ? "animate-pulse"
+                : ""
+            }`}
+            id="time-left"
+          >
+            {timer.display ||
+              `${sessionLength < 10 ? `0` + sessionLength : sessionLength}:00`}
+          </div>
+          <div className={`controls ${
+            timer.duration < 60 && timer.state === TIMER_STATE.RUNNING
+              ? "animate-pulse"
+              : ""
+          }`}>
+            <button className="btn" id="reset" onClick={(e) => handleReset(e)}>
+              <FontAwesomeIcon icon={faStopCircle} />
+            </button>
+            <button
+              className="btn"
+              id="start_stop"
+              onClick={(e) => handleStartStop(e)}
+            >
+              {timer.state === TIMER_STATE.RUNNING ? (
+                <FontAwesomeIcon icon={faPauseCircle} />
+              ) : (
+                <FontAwesomeIcon icon={faPlayCircle} />
+              )}
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }

@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .app {
+    @apply cursor-default;
+    @apply min-h-screen flex flex-col justify-center items-center;
+    @apply bg-gradient-to-tl from-teal-700 to-emerald-600 text-white text-2xl;
+  }
+
+  .main {
+    @apply w-full p-4 sm:w-[480px] sm:p-6 rounded-2xl;
+    @apply bg-gradient-to-tl from-teal-700 to-emerald-600 drop-shadow-lg;
+  }
+
+  .settings {
+    @apply flex justify-evenly uppercase text-center my-4;
+  }
+
+  .setting {
+    @apply flex flex-col justify-center items-center gap-2 px-2;
+  }
+
+  .timer {
+    @apply flex flex-col justify-evenly items-center gap-2;
+    @apply rounded-full w-72 h-72 py-4 mx-auto mt-16 mb-8;
+    @apply bg-gradient-to-tr from-teal-700 to-emerald-600 drop-shadow;
+    @apply sm:w-80 sm:h-80;
+  }
+
+  .timerLabel {
+    @apply text-4xl;
+  }
+
+  .timerDisplay {
+    @apply text-8xl;
+  }
+
+  .controls {
+    @apply flex justify-evenly gap-8;
+    @apply text-4xl;
+  }
+
+  .btn-wrapper {
+    @apply flex gap-2;
+  }
+
+  .btn {
+    @apply cursor-pointer;
+    @apply rounded-full text-white transition-all duration-100;
+  }
+
+  .btn:hover {
+    @apply opacity-75;
+  }
+
+  .btn:active {
+    @apply scale-75;
+  }
+}
