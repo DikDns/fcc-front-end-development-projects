@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Zen Dots";
+    font-weight: 400;
+    src: local("Zen Dots"),
+      url(./assets/fonts/ZenDots-Regular.ttf) format("truetype");
+  }
+}
