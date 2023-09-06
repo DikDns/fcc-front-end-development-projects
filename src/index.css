@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Cascadia Code";
+    font-weight: 400;
+    src: local("Cascadia Code"),
+      url(./assets/fonts/CascadiaCode-Regular.ttf) format("truetype");
+  }
+}
+
+@layer components {
+  .App {
+    @apply overflow-hidden min-h-screen flex flex-col justify-end font-display bg-zinc-50 sm:shadow-lg sm:shadow-violet-500 sm:w-96 sm:min-h-[90vh] sm:mx-auto sm:mt-5 sm:rounded-xl;
+  }
+
+  .displayContainer {
+    @apply bg-zinc-50 text-black py-2 px-4 text-right;
+  }
+
+  .display {
+    @apply text-xl mt-1 break-words;
+  }
+
+  .display-primary {
+    @apply text-4xl;
+  }
+
+  .display-secondary {
+    @apply text-lg opacity-25;
+  }
+
+  .buttonContainer {
+    @apply border border-t border-zinc-200 px-2 pb-4 pt-2 bg-zinc-50 grid grid-cols-4 grid-rows-5 justify-items-center content-center gap-4;
+  }
+
+  .btn {
+    @apply shadow shadow-zinc-200 flex cursor-pointer transition-colors duration-200 ease-in-out justify-center items-center rounded-full w-full h-16 text-3xl;
+  }
+
+  .btn:hover {
+    @apply bg-zinc-100 shadow-zinc-400;
+  }
+
+  .btn:active {
+    @apply shadow-none translate-x-0.5 -translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply shadow-violet-600 bg-violet-600 text-zinc-50;
+  }
+
+  .btn-primary:hover {
+    @apply bg-violet-500 shadow-violet-500;
+  }
+
+  .btn-secondary {
+    @apply text-violet-600;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-zinc-100  shadow-zinc-300;
+  }
+
+  .btn-span-2 {
+    @apply col-span-2;
+  }
+}
