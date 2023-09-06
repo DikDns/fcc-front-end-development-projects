@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #previewer h1 {
+    @apply text-2xl font-bold border-b-2 border-neutral-200 pb-2 mb-4 break-words;
+  }
+
+  #previewer h2 {
+    @apply text-xl font-semibold border-b border-neutral-200 pb-1 mb-4 break-words;
+  }
+
+  #previewer h3 {
+    @apply text-lg font-semibold mb-4 break-words;
+  }
+
+  #previewer h4 {
+    @apply text-base font-semibold mb-4 break-words;
+  }
+
+  #previewer h5 {
+    @apply text-sm font-semibold mb-4 break-words;
+  }
+
+  #previewer h6 {
+    @apply text-sm font-semibold mb-4 text-neutral-500 break-words;
+  }
+
+  #previewer p {
+    @apply text-base font-normal mb-6 mx-4 break-words;
+  }
+
+  #previewer p code {
+    @apply font-mono rounded px-1 bg-neutral-200 leading-tight tracking-tighter;
+  }
+
+  #previewer pre {
+    @apply font-mono rounded mb-6 p-4 bg-neutral-200 leading-tight tracking-tighter overflow-x-auto;
+  }
+
+  #previewer a {
+    @apply text-blue-500;
+  }
+
+  #previewer blockquote {
+    @apply pl-4 border-l-8 border-neutral-200 text-neutral-500;
+  }
+
+  #previewer table {
+    @apply block max-w-full overflow-auto rounded mb-6;
+  }
+
+  #previewer tr {
+    @apply even:bg-neutral-100;
+  }
+
+  #previewer td {
+    @apply p-2 border-inherit border-2;
+  }
+
+  #previewer th {
+    @apply p-2 border-inherit border-2 font-semibold;
+  }
+
+  #previewer ul {
+    @apply pl-8 list-disc mb-6;
+  }
+
+  #previewer ul li ul {
+    @apply pl-8 list-[circle];
+  }
+
+  #previewer ul li ul li ul {
+    @apply pl-8 list-[square];
+  }
+
+  #previewer ul li ul li ul {
+    @apply pl-8 list-[square];
+  }
+
+  #previewer ol {
+    @apply pl-8 list-decimal mb-6;
+  }
+}
